@@ -11,6 +11,23 @@
 		BD205CE029C43F5700436543 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD205CDF29C43F5700436543 /* ContentView.swift */; };
 		BD205CE229C43F5800436543 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD205CE129C43F5800436543 /* Assets.xcassets */; };
 		BD205CE529C43F5800436543 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD205CE429C43F5800436543 /* Preview Assets.xcassets */; };
+		BD205CF029C4463F00436543 /* ShakeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD205CEF29C4463F00436543 /* ShakeState.swift */; };
+		BD205CF429C4475800436543 /* ShakeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD205CF329C4475800436543 /* ShakeViewModel.swift */; };
+		BD205CF829C4491600436543 /* ShakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD205CF729C4491600436543 /* ShakeView.swift */; };
+		BD2549AC29C4C05000AC0585 /* ShakeExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549AB29C4C05000AC0585 /* ShakeExt.swift */; };
+		BD2549B429C5A28700AC0585 /* IngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549B329C5A28700AC0585 /* IngredientView.swift */; };
+		BD2549B729C5B1D900AC0585 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549B629C5B1D900AC0585 /* Ingredient.swift */; };
+		BD2549C129C5B9EB00AC0585 /* fridge.svg in Resources */ = {isa = PBXBuildFile; fileRef = BD2549BF29C5B9EB00AC0585 /* fridge.svg */; };
+		BD2549C229C5B9EB00AC0585 /* shake.svg in Resources */ = {isa = PBXBuildFile; fileRef = BD2549C029C5B9EB00AC0585 /* shake.svg */; };
+		BD2549C529C6184F00AC0585 /* IngredientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549C429C6184F00AC0585 /* IngredientViewModel.swift */; };
+		BD2549C929C6199C00AC0585 /* IngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549C829C6199C00AC0585 /* IngredientRepository.swift */; };
+		BD2549CC29C61B4D00AC0585 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BD2549CB29C61B4D00AC0585 /* Alamofire */; };
+		BD2549CF29C61CC100AC0585 /* IngredientResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549CE29C61CC100AC0585 /* IngredientResponse.swift */; };
+		BD2549D129C62AAA00AC0585 /* ShakeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549D029C62AAA00AC0585 /* ShakeError.swift */; };
+		BD2549D529C6495600AC0585 /* IngredientState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549D429C6495600AC0585 /* IngredientState.swift */; };
+		BDDA8F4329C49E9800E1BA4B /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = BDDA8F4229C49E9800E1BA4B /* SVGKit */; };
+		BDDA8F4529C49EB900E1BA4B /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BDDA8F4429C49EB900E1BA4B /* SVGKitSwift */; };
+		BDDA8F4829C49FFB00E1BA4B /* SVGImageExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDA8F4729C49FFB00E1BA4B /* SVGImageExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +36,20 @@
 		BD205CDF29C43F5700436543 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BD205CE129C43F5800436543 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD205CE429C43F5800436543 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BD205CEF29C4463F00436543 /* ShakeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeState.swift; sourceTree = "<group>"; };
+		BD205CF329C4475800436543 /* ShakeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeViewModel.swift; sourceTree = "<group>"; };
+		BD205CF729C4491600436543 /* ShakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeView.swift; sourceTree = "<group>"; };
+		BD2549AB29C4C05000AC0585 /* ShakeExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeExt.swift; sourceTree = "<group>"; };
+		BD2549B329C5A28700AC0585 /* IngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientView.swift; sourceTree = "<group>"; };
+		BD2549B629C5B1D900AC0585 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		BD2549BF29C5B9EB00AC0585 /* fridge.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fridge.svg; sourceTree = "<group>"; };
+		BD2549C029C5B9EB00AC0585 /* shake.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = shake.svg; sourceTree = "<group>"; };
+		BD2549C429C6184F00AC0585 /* IngredientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientViewModel.swift; sourceTree = "<group>"; };
+		BD2549C829C6199C00AC0585 /* IngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRepository.swift; sourceTree = "<group>"; };
+		BD2549CE29C61CC100AC0585 /* IngredientResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientResponse.swift; sourceTree = "<group>"; };
+		BD2549D029C62AAA00AC0585 /* ShakeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeError.swift; sourceTree = "<group>"; };
+		BD2549D429C6495600AC0585 /* IngredientState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientState.swift; sourceTree = "<group>"; };
+		BDDA8F4729C49FFB00E1BA4B /* SVGImageExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +57,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD2549CC29C61B4D00AC0585 /* Alamofire in Frameworks */,
+				BDDA8F4529C49EB900E1BA4B /* SVGKitSwift in Frameworks */,
+				BDDA8F4329C49E9800E1BA4B /* SVGKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +71,7 @@
 			children = (
 				BD205CDC29C43F5700436543 /* Shake'n'Cook */,
 				BD205CDB29C43F5700436543 /* Products */,
+				BDDA8F4129C49E9800E1BA4B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,8 +86,12 @@
 		BD205CDC29C43F5700436543 /* Shake'n'Cook */ = {
 			isa = PBXGroup;
 			children = (
+				BD2549BE29C5B99F00AC0585 /* assets */,
+				BD205CEB29C445BD00436543 /* home */,
+				BD2549AD29C5A1D600AC0585 /* ingredients */,
+				BD205CEC29C445F800436543 /* shake */,
+				BDDA8F4629C49FE400E1BA4B /* utils */,
 				BD205CDD29C43F5700436543 /* Shake_n_CookApp.swift */,
-				BD205CDF29C43F5700436543 /* ContentView.swift */,
 				BD205CE129C43F5800436543 /* Assets.xcassets */,
 				BD205CE329C43F5800436543 /* Preview Content */,
 			);
@@ -65,6 +104,127 @@
 				BD205CE429C43F5800436543 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BD205CEB29C445BD00436543 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				BD205CDF29C43F5700436543 /* ContentView.swift */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		BD205CEC29C445F800436543 /* shake */ = {
+			isa = PBXGroup;
+			children = (
+				BD205CF229C4472100436543 /* interface-adapter */,
+				BD205CED29C4461300436543 /* ui */,
+				BD205CF729C4491600436543 /* ShakeView.swift */,
+			);
+			path = shake;
+			sourceTree = "<group>";
+		};
+		BD205CED29C4461300436543 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				BD205CEE29C4462100436543 /* model */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		BD205CEE29C4462100436543 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				BD205CEF29C4463F00436543 /* ShakeState.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		BD205CF229C4472100436543 /* interface-adapter */ = {
+			isa = PBXGroup;
+			children = (
+				BD205CF329C4475800436543 /* ShakeViewModel.swift */,
+			);
+			path = "interface-adapter";
+			sourceTree = "<group>";
+		};
+		BD2549AD29C5A1D600AC0585 /* ingredients */ = {
+			isa = PBXGroup;
+			children = (
+				BD2549C629C6193D00AC0585 /* data */,
+				BD2549C329C6182C00AC0585 /* interface-adapter */,
+				BD2549B229C5A27500AC0585 /* ui */,
+			);
+			path = ingredients;
+			sourceTree = "<group>";
+		};
+		BD2549B229C5A27500AC0585 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				BD2549CD29C61C8D00AC0585 /* model */,
+				BD2549B329C5A28700AC0585 /* IngredientView.swift */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		BD2549B529C5B1C000AC0585 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				BD2549CE29C61CC100AC0585 /* IngredientResponse.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		BD2549BE29C5B99F00AC0585 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				BD2549BF29C5B9EB00AC0585 /* fridge.svg */,
+				BD2549C029C5B9EB00AC0585 /* shake.svg */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		BD2549C329C6182C00AC0585 /* interface-adapter */ = {
+			isa = PBXGroup;
+			children = (
+				BD2549C429C6184F00AC0585 /* IngredientViewModel.swift */,
+			);
+			path = "interface-adapter";
+			sourceTree = "<group>";
+		};
+		BD2549C629C6193D00AC0585 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				BD2549B529C5B1C000AC0585 /* model */,
+				BD2549C829C6199C00AC0585 /* IngredientRepository.swift */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		BD2549CD29C61C8D00AC0585 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				BD2549B629C5B1D900AC0585 /* Ingredient.swift */,
+				BD2549D429C6495600AC0585 /* IngredientState.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		BDDA8F4129C49E9800E1BA4B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BDDA8F4629C49FE400E1BA4B /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				BDDA8F4729C49FFB00E1BA4B /* SVGImageExt.swift */,
+				BD2549AB29C4C05000AC0585 /* ShakeExt.swift */,
+				BD2549D029C62AAA00AC0585 /* ShakeError.swift */,
+			);
+			path = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +243,11 @@
 			dependencies = (
 			);
 			name = "Shake'n'Cook";
+			packageProductDependencies = (
+				BDDA8F4229C49E9800E1BA4B /* SVGKit */,
+				BDDA8F4429C49EB900E1BA4B /* SVGKitSwift */,
+				BD2549CB29C61B4D00AC0585 /* Alamofire */,
+			);
 			productName = "Shake'n'Cook";
 			productReference = BD205CDA29C43F5700436543 /* Shake'n'Cook.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +276,10 @@
 				Base,
 			);
 			mainGroup = BD205CD129C43F5700436543;
+			packageReferences = (
+				BD1A23EF29C45F6A007836B2 /* XCRemoteSwiftPackageReference "SVGKit" */,
+				BD2549CA29C61B4D00AC0585 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = BD205CDB29C43F5700436543 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,8 +294,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD2549C129C5B9EB00AC0585 /* fridge.svg in Resources */,
 				BD205CE529C43F5800436543 /* Preview Assets.xcassets in Resources */,
 				BD205CE229C43F5800436543 /* Assets.xcassets in Resources */,
+				BD2549C229C5B9EB00AC0585 /* shake.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +308,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD205CF829C4491600436543 /* ShakeView.swift in Sources */,
+				BD2549AC29C4C05000AC0585 /* ShakeExt.swift in Sources */,
+				BD2549B729C5B1D900AC0585 /* Ingredient.swift in Sources */,
+				BD2549D129C62AAA00AC0585 /* ShakeError.swift in Sources */,
+				BD2549D529C6495600AC0585 /* IngredientState.swift in Sources */,
+				BD2549CF29C61CC100AC0585 /* IngredientResponse.swift in Sources */,
+				BD2549C929C6199C00AC0585 /* IngredientRepository.swift in Sources */,
+				BD205CF029C4463F00436543 /* ShakeState.swift in Sources */,
+				BD205CF429C4475800436543 /* ShakeViewModel.swift in Sources */,
+				BD2549B429C5A28700AC0585 /* IngredientView.swift in Sources */,
 				BD205CE029C43F5700436543 /* ContentView.swift in Sources */,
+				BD2549C529C6184F00AC0585 /* IngredientViewModel.swift in Sources */,
+				BDDA8F4829C49FFB00E1BA4B /* SVGImageExt.swift in Sources */,
 				BD205CDE29C43F5700436543 /* Shake_n_CookApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +458,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,6 +488,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -339,6 +524,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BD1A23EF29C45F6A007836B2 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVGKit/SVGKit.git";
+			requirement = {
+				branch = 3.x;
+				kind = branch;
+			};
+		};
+		BD2549CA29C61B4D00AC0585 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BD2549CB29C61B4D00AC0585 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD2549CA29C61B4D00AC0585 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		BDDA8F4229C49E9800E1BA4B /* SVGKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD1A23EF29C45F6A007836B2 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKit;
+		};
+		BDDA8F4429C49EB900E1BA4B /* SVGKitSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BD1A23EF29C45F6A007836B2 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKitSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BD205CD229C43F5700436543 /* Project object */;
 }
