@@ -16,10 +16,10 @@ struct ContentView: View {
                     Image(uiImage: SVGKImage(named: "shake").resize(width: 30, height: 30))
                     Text("Shake")
                 }
-            Text("Profile")
+            RecipeView()
                 .tabItem {
-                    Image(systemName: "person")
-                    Text("Profile")
+                    Image(systemName: "book")
+                    Text("Recipes")
                 }
         }
     }

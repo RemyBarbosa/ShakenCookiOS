@@ -103,9 +103,8 @@ private func floattingButton(action: @escaping () -> Void) -> some View {
         action()
     }, label: {
         Image(systemName: "checkmark").colorInvert()
-            .padding(.vertical, 20)
-            .padding(.horizontal, 20)
     })
+    .frame(width: 75, height: 75)
     .background(Color.blue)
     .cornerRadius(200)
     .padding()

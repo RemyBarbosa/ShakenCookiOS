@@ -36,6 +36,9 @@
 		BD546F4429C719EE004A7BFA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = BD546F4329C719EE004A7BFA /* FirebaseStorage */; };
 		BD546F4629C719EE004A7BFA /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BD546F4529C719EE004A7BFA /* FirebaseStorageCombine-Community */; };
 		BDBCECD329C73BF40094936A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDBCECD229C73BF40094936A /* GoogleService-Info.plist */; };
+		BDBCECDA29C769F40094936A /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECD929C769F40094936A /* RecipeView.swift */; };
+		BDBCECDD29C779110094936A /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECDC29C779110094936A /* RecipeViewModel.swift */; };
+		BDBCECE029C77A740094936A /* RecipeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECDF29C77A740094936A /* RecipeKind.swift */; };
 		BDDA8F4329C49E9800E1BA4B /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = BDDA8F4229C49E9800E1BA4B /* SVGKit */; };
 		BDDA8F4529C49EB900E1BA4B /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BDDA8F4429C49EB900E1BA4B /* SVGKitSwift */; };
 		BDDA8F4829C49FFB00E1BA4B /* SVGImageExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDA8F4729C49FFB00E1BA4B /* SVGImageExt.swift */; };
@@ -62,6 +65,9 @@
 		BD2549D429C6495600AC0585 /* IngredientState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientState.swift; sourceTree = "<group>"; };
 		BD546F3229C70165004A7BFA /* DiskCacheImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCacheImageLoader.swift; sourceTree = "<group>"; };
 		BDBCECD229C73BF40094936A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		BDBCECD929C769F40094936A /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
+		BDBCECDC29C779110094936A /* RecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewModel.swift; sourceTree = "<group>"; };
+		BDBCECDF29C77A740094936A /* RecipeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeKind.swift; sourceTree = "<group>"; };
 		BDDA8F4729C49FFB00E1BA4B /* SVGImageExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +118,7 @@
 				BD2549BE29C5B99F00AC0585 /* assets */,
 				BD205CEB29C445BD00436543 /* home */,
 				BD2549AD29C5A1D600AC0585 /* ingredients */,
+				BDBCECD729C769AC0094936A /* recipe */,
 				BD205CEC29C445F800436543 /* shake */,
 				BDDA8F4629C49FE400E1BA4B /* utils */,
 				BD205CDD29C43F5700436543 /* Shake_n_CookApp.swift */,
@@ -233,6 +240,40 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		BDBCECD729C769AC0094936A /* recipe */ = {
+			isa = PBXGroup;
+			children = (
+				BDBCECDB29C778CA0094936A /* interface-adapter */,
+				BDBCECD829C769D60094936A /* ui */,
+			);
+			path = recipe;
+			sourceTree = "<group>";
+		};
+		BDBCECD829C769D60094936A /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				BDBCECDE29C77A680094936A /* model */,
+				BDBCECD929C769F40094936A /* RecipeView.swift */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		BDBCECDB29C778CA0094936A /* interface-adapter */ = {
+			isa = PBXGroup;
+			children = (
+				BDBCECDC29C779110094936A /* RecipeViewModel.swift */,
+			);
+			path = "interface-adapter";
+			sourceTree = "<group>";
+		};
+		BDBCECDE29C77A680094936A /* model */ = {
+			isa = PBXGroup;
+			children = (
+				BDBCECDF29C77A740094936A /* RecipeKind.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		BDDA8F4129C49E9800E1BA4B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,9 +388,11 @@
 				BD205CF829C4491600436543 /* ShakeView.swift in Sources */,
 				BD2549AC29C4C05000AC0585 /* ShakeExt.swift in Sources */,
 				BD2549B729C5B1D900AC0585 /* Ingredient.swift in Sources */,
+				BDBCECDD29C779110094936A /* RecipeViewModel.swift in Sources */,
 				BD2549D129C62AAA00AC0585 /* ShakeError.swift in Sources */,
 				BD2549D529C6495600AC0585 /* IngredientState.swift in Sources */,
 				BD2549CF29C61CC100AC0585 /* IngredientResponse.swift in Sources */,
+				BDBCECE029C77A740094936A /* RecipeKind.swift in Sources */,
 				BD546F3329C70165004A7BFA /* DiskCacheImageLoader.swift in Sources */,
 				BD2549C929C6199C00AC0585 /* IngredientRepository.swift in Sources */,
 				BD205CF029C4463F00436543 /* ShakeState.swift in Sources */,
@@ -358,6 +401,7 @@
 				BD205CE029C43F5700436543 /* ContentView.swift in Sources */,
 				BD2549C529C6184F00AC0585 /* IngredientViewModel.swift in Sources */,
 				BDDA8F4829C49FFB00E1BA4B /* SVGImageExt.swift in Sources */,
+				BDBCECDA29C769F40094936A /* RecipeView.swift in Sources */,
 				BD205CDE29C43F5700436543 /* Shake_n_CookApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

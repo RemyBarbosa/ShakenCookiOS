@@ -58,9 +58,8 @@ private func floattingButton(action: @escaping () -> Void) -> some View {
         action()
     }, label: {
         Image(uiImage: SVGKImage(named: "fridge").resize(width: 35, height:50))
-            .padding(.vertical, 10)
-            .padding(.horizontal, 17.5)
     })
+    .frame(width: 75, height: 75)
     .background(Color.blue)
     .cornerRadius(200)
     .padding()
