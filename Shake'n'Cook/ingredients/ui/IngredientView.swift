@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct IngredientView: View {
+    @StateObject private var imageLoader = DiskCachedImageLoader()
     @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel = IngredientViewModel(ingredientRepository: IngredientRepository())
     var initialIngredients: [Ingredient]
@@ -40,26 +41,35 @@ struct IngredientView: View {
                 case .ingredients(let ingredients):
                     List(ingredients, id: \.name) { ingredient in
                         Button(action: {
-                            var newIngredient = ingredient
-                            newIngredient.isSelected = !newIngredient.isSelected
-                            viewModel.handleIngredient(ingredient: newIngredient)
+                            viewModel.handleIngredient(ingredient: ingredient)
+                            self.viewModel.saveIngredientOnFirebase(ingredient : ingredient)
                         }) {
                             HStack{
-                                AsyncImage(url: URL(string: ingredient.pictureUrl)) { phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                    case .failure:
-                                        Text("Failed to load image")
-                                    @unknown default:
-                                        ProgressView()
+                                if let pictureUrl = URL(string: ingredient.pictureUrl ?? "") {
+                                    AsyncImage(url: pictureUrl) { phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                        case .success(let image):
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fit)
+                                        case .failure:
+                                            Image(systemName: "xmark")
+                                                .frame(width: 48, height: 48)
+                                        @unknown default:
+                                            ProgressView()
+                                        }
                                     }
+                                    .frame(width: 48, height: 48)
+                                    .onAppear {
+                                        _ = imageLoader.loadImage(from: pictureUrl)
+                                    }
+                                } else {
+                                    Image(systemName: "questionmark")
+                                        .frame(width: 48, height: 48)
                                 }
-                                .frame(width: 48, height: 40)
+                                
                                 Image(ingredient.name).foregroundColor(Color.black)
                                 Text(ingredient.name).foregroundColor(Color.black)
                                 Spacer()

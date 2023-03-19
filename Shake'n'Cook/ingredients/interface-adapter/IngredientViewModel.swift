@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class IngredientViewModel: ObservableObject {
     private let ingredientRepository: IngredientRepository
@@ -17,7 +18,7 @@ class IngredientViewModel: ObservableObject {
             if case .ingredients(let ingredients) = state {
                 if (searchText.count > 0) {
                     state = IngredientState.ingredients(ingredients: ingredients.compactMap { ingredient in
-                        return self.getIngredientsWithSelected(viewModel: self, ingredient.name, ingredient.pictureUrl)
+                        return self.getIngredientsWithSelected(viewModel: self, ingredient.name, ingredient.id, ingredient.pictureUrl)
                     })
                 } else {
                     state = IngredientState.ingredients(ingredients:selectedIngredients.filter { $0.isSelected })
@@ -55,11 +56,12 @@ class IngredientViewModel: ObservableObject {
         selectedIngredients = ingredients
     }
     
-    fileprivate func getIngredientsWithSelected(viewModel : IngredientViewModel?, _ name: String, _ pictureUrl: String) -> Ingredient? {
+    fileprivate func getIngredientsWithSelected(viewModel : IngredientViewModel?, _ name: String, _ tagdId: String, _ pictureUrl: String?) -> Ingredient? {
         let isSelected = viewModel?.selectedIngredients.contains { ingredient in
             ingredient.name == name && ingredient.isSelected
         } ?? false
-        return Ingredient(name: name, pictureUrl: pictureUrl, isSelected: isSelected)
+        let computedPictureUrl = pictureUrl?.contains("nix-apple-grey") == true ? nil : pictureUrl
+        return Ingredient( id : tagdId, name: name, pictureUrl: computedPictureUrl, isSelected: isSelected)
     }
     
     func search(query:String) {
@@ -68,8 +70,8 @@ class IngredientViewModel: ObservableObject {
             switch response {
             case .success(let ingredients):
                 let result = ingredients.compactMap{ ingredientApi in
-                    if let name = ingredientApi.food_name, let pictureUrl = ingredientApi.photo?.thumb {
-                        return self?.getIngredientsWithSelected(viewModel : self, name, pictureUrl)
+                    if let name = ingredientApi.food_name, let tagId = ingredientApi.tag_id {
+                        return self?.getIngredientsWithSelected(viewModel : self, name, tagId, ingredientApi.photo?.thumb)
                     } else {
                         return nil
                     }
@@ -85,10 +87,16 @@ class IngredientViewModel: ObservableObject {
     }
     
     func handleIngredient(ingredient :Ingredient) {
-        if let index = selectedIngredients.firstIndex(where: { $0.name == ingredient.name }) {
+        var newIngredient = ingredient
+        newIngredient.isSelected = !newIngredient.isSelected
+        if let index = selectedIngredients.firstIndex(where: { $0.name == newIngredient.name }) {
             selectedIngredients.remove(at: index)
         } else {
-            selectedIngredients.append(ingredient)
+            selectedIngredients.append(newIngredient)
         }
+    }
+    
+    func saveIngredientOnFirebase(ingredient: Ingredient) {
+        ingredientRepository.saveIngredientOnFirebase(ingredient: ingredient)
     }
 }

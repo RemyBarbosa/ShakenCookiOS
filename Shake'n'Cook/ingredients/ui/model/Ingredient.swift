@@ -8,7 +8,8 @@
 import Foundation
 
 struct Ingredient {
+    let id: String
     let name: String
-    let pictureUrl: String
+    let pictureUrl: String?
     var isSelected: Bool = false
 }
