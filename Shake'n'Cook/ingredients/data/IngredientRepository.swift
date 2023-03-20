@@ -51,7 +51,7 @@ class IngredientRepository {
         // Define the query
         let firebaseQuery = firestoreIngredientCollection
             .whereField(Constants.name, isGreaterThanOrEqualTo: query.lowercased())
-            .whereField(Constants.name, isLessThan: query.lowercased() + "\u{f8ff}")
+            .whereField(Constants.name, isLessThanOrEqualTo: query.lowercased() + "\u{f8ff}")
             .order(by: Constants.name)
             .limit(to: 10)
         

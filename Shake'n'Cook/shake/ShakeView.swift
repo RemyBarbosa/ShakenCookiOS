@@ -38,32 +38,24 @@ struct ShakeView: View {
                 Spacer() // you can use Rectangle().fill(Color.blue) to see what your doing
                 HStack {
                     Spacer()
-                    floattingButton() {
+                    FloatingActionButtonView(
+                        label: {
+                            Image(uiImage: SVGKImage(named:"fridge").resize(width: 35, height:50)
+                            )
+                        }
+                    ) {
                         showBottomSheet.toggle()
-                    }
+                    }.padding()
                 }
             }
         }.onShake {
             viewModel.deviceHasBeenShake()
         }.sheet(isPresented: $showBottomSheet, content: {
-            IngredientView(initialIngredients : viewModel.currentIngredients) {  selectedIngredients in
+            SearchIngredientView(initialIngredients : viewModel.currentIngredients) {  selectedIngredients in
                 viewModel.setFilteredShake(selectedIngredients:selectedIngredients)
             }
         })
     }
-}
-
-private func floattingButton(action: @escaping () -> Void) -> some View {
-    return Button(action: {
-        action()
-    }, label: {
-        Image(uiImage: SVGKImage(named: "fridge").resize(width: 35, height:50))
-    })
-    .frame(width: 75, height: 75)
-    .background(Color.blue)
-    .cornerRadius(200)
-    .padding()
-    .shadow(color: Color.black.opacity(0.3),radius: 3,   x: 3, y: 3)
 }
 
 struct ShakeView_Previews: PreviewProvider {

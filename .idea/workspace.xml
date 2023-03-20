@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f714eed3-9df4-432a-abf7-dec306a8710b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Shake'n'Cook/utils/DiskCacheImageLoader.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Shake'n'Cook/ingredients/ui/IngredientItemView.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Shake'n'Cook/recipe/ui/RecipesView.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Shake'n'Cook/utils/FloatingActionButtonView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Shake'n'Cook.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shake'n'Cook/ingredients/interface-adapter/IngredientViewModel.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/ingredients/interface-adapter/IngredientViewModel.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shake'n'Cook.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shake'n'Cook/ingredients/data/IngredientRepository.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/ingredients/data/IngredientRepository.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Shake'n'Cook/ingredients/ui/IngredientView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/ingredients/ui/IngredientView.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shake'n'Cook/ingredients/ui/model/Ingredient.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/ingredients/ui/model/Ingredient.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shake'n'Cook/recipe/ui/RecipeView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/recipe/ui/RecipeView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shake'n'Cook/shake/ShakeView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/shake/ShakeView.swift" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +75,8 @@
       <workItem from="1679219780517" duration="322000" />
       <workItem from="1679220114623" duration="125000" />
       <workItem from="1679220284406" duration="54000" />
+      <workItem from="1679298797302" duration="18000" />
+      <workItem from="1679306590859" duration="652000" />
     </task>
     <servers />
   </component>

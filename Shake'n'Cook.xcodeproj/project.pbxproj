@@ -15,7 +15,7 @@
 		BD205CF429C4475800436543 /* ShakeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD205CF329C4475800436543 /* ShakeViewModel.swift */; };
 		BD205CF829C4491600436543 /* ShakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD205CF729C4491600436543 /* ShakeView.swift */; };
 		BD2549AC29C4C05000AC0585 /* ShakeExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549AB29C4C05000AC0585 /* ShakeExt.swift */; };
-		BD2549B429C5A28700AC0585 /* IngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549B329C5A28700AC0585 /* IngredientView.swift */; };
+		BD2549B429C5A28700AC0585 /* SearchIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549B329C5A28700AC0585 /* SearchIngredientView.swift */; };
 		BD2549B729C5B1D900AC0585 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2549B629C5B1D900AC0585 /* Ingredient.swift */; };
 		BD2549C129C5B9EB00AC0585 /* fridge.svg in Resources */ = {isa = PBXBuildFile; fileRef = BD2549BF29C5B9EB00AC0585 /* fridge.svg */; };
 		BD2549C229C5B9EB00AC0585 /* shake.svg in Resources */ = {isa = PBXBuildFile; fileRef = BD2549C029C5B9EB00AC0585 /* shake.svg */; };
@@ -39,6 +39,11 @@
 		BDBCECDA29C769F40094936A /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECD929C769F40094936A /* RecipeView.swift */; };
 		BDBCECDD29C779110094936A /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECDC29C779110094936A /* RecipeViewModel.swift */; };
 		BDBCECE029C77A740094936A /* RecipeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECDF29C77A740094936A /* RecipeKind.swift */; };
+		BDBCECE229C837170094936A /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECE129C837170094936A /* RecipesView.swift */; };
+		BDBCECE529C84B0D0094936A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BDBCECE429C84B0D0094936A /* Kingfisher */; };
+		BDBCECE729C853250094936A /* IngredientItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECE629C853250094936A /* IngredientItemView.swift */; };
+		BDBCECE929C85C850094936A /* FloatingActionButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECE829C85C850094936A /* FloatingActionButtonView.swift */; };
+		BDBCECEB29C87D410094936A /* QuantityKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECEA29C87D410094936A /* QuantityKind.swift */; };
 		BDDA8F4329C49E9800E1BA4B /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = BDDA8F4229C49E9800E1BA4B /* SVGKit */; };
 		BDDA8F4529C49EB900E1BA4B /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BDDA8F4429C49EB900E1BA4B /* SVGKitSwift */; };
 		BDDA8F4829C49FFB00E1BA4B /* SVGImageExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDDA8F4729C49FFB00E1BA4B /* SVGImageExt.swift */; };
@@ -54,7 +59,7 @@
 		BD205CF329C4475800436543 /* ShakeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeViewModel.swift; sourceTree = "<group>"; };
 		BD205CF729C4491600436543 /* ShakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeView.swift; sourceTree = "<group>"; };
 		BD2549AB29C4C05000AC0585 /* ShakeExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeExt.swift; sourceTree = "<group>"; };
-		BD2549B329C5A28700AC0585 /* IngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientView.swift; sourceTree = "<group>"; };
+		BD2549B329C5A28700AC0585 /* SearchIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIngredientView.swift; sourceTree = "<group>"; };
 		BD2549B629C5B1D900AC0585 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		BD2549BF29C5B9EB00AC0585 /* fridge.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fridge.svg; sourceTree = "<group>"; };
 		BD2549C029C5B9EB00AC0585 /* shake.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = shake.svg; sourceTree = "<group>"; };
@@ -68,6 +73,10 @@
 		BDBCECD929C769F40094936A /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		BDBCECDC29C779110094936A /* RecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewModel.swift; sourceTree = "<group>"; };
 		BDBCECDF29C77A740094936A /* RecipeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeKind.swift; sourceTree = "<group>"; };
+		BDBCECE129C837170094936A /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
+		BDBCECE629C853250094936A /* IngredientItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientItemView.swift; sourceTree = "<group>"; };
+		BDBCECE829C85C850094936A /* FloatingActionButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingActionButtonView.swift; sourceTree = "<group>"; };
+		BDBCECEA29C87D410094936A /* QuantityKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityKind.swift; sourceTree = "<group>"; };
 		BDDA8F4729C49FFB00E1BA4B /* SVGImageExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +93,7 @@
 				BD546F3829C719EE004A7BFA /* FirebaseAuthCombine-Community in Frameworks */,
 				BD546F3A29C719EE004A7BFA /* FirebaseFirestore in Frameworks */,
 				BD546F4229C719EE004A7BFA /* FirebaseRemoteConfigSwift in Frameworks */,
+				BDBCECE529C84B0D0094936A /* Kingfisher in Frameworks */,
 				BD546F4429C719EE004A7BFA /* FirebaseStorage in Frameworks */,
 				BD546F3C29C719EE004A7BFA /* FirebaseFirestoreCombine-Community in Frameworks */,
 				BD546F4629C719EE004A7BFA /* FirebaseStorageCombine-Community in Frameworks */,
@@ -192,7 +202,8 @@
 			isa = PBXGroup;
 			children = (
 				BD2549CD29C61C8D00AC0585 /* model */,
-				BD2549B329C5A28700AC0585 /* IngredientView.swift */,
+				BD2549B329C5A28700AC0585 /* SearchIngredientView.swift */,
+				BDBCECE629C853250094936A /* IngredientItemView.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -254,6 +265,7 @@
 			children = (
 				BDBCECDE29C77A680094936A /* model */,
 				BDBCECD929C769F40094936A /* RecipeView.swift */,
+				BDBCECE129C837170094936A /* RecipesView.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -270,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				BDBCECDF29C77A740094936A /* RecipeKind.swift */,
+				BDBCECEA29C87D410094936A /* QuantityKind.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -288,6 +301,7 @@
 				BD2549AB29C4C05000AC0585 /* ShakeExt.swift */,
 				BD2549D029C62AAA00AC0585 /* ShakeError.swift */,
 				BD546F3229C70165004A7BFA /* DiskCacheImageLoader.swift */,
+				BDBCECE829C85C850094936A /* FloatingActionButtonView.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -321,6 +335,7 @@
 				BD546F4129C719EE004A7BFA /* FirebaseRemoteConfigSwift */,
 				BD546F4329C719EE004A7BFA /* FirebaseStorage */,
 				BD546F4529C719EE004A7BFA /* FirebaseStorageCombine-Community */,
+				BDBCECE429C84B0D0094936A /* Kingfisher */,
 			);
 			productName = "Shake'n'Cook";
 			productReference = BD205CDA29C43F5700436543 /* Shake'n'Cook.app */;
@@ -355,6 +370,7 @@
 				BD2549CA29C61B4D00AC0585 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				BD546F3429C719EE004A7BFA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				BDBCECD429C74F710094936A /* XCRemoteSwiftPackageReference "CodableFirebase" */,
+				BDBCECE329C84B0D0094936A /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = BD205CDB29C43F5700436543 /* Products */;
 			projectDirPath = "";
@@ -385,23 +401,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDBCECE929C85C850094936A /* FloatingActionButtonView.swift in Sources */,
 				BD205CF829C4491600436543 /* ShakeView.swift in Sources */,
 				BD2549AC29C4C05000AC0585 /* ShakeExt.swift in Sources */,
 				BD2549B729C5B1D900AC0585 /* Ingredient.swift in Sources */,
+				BDBCECEB29C87D410094936A /* QuantityKind.swift in Sources */,
 				BDBCECDD29C779110094936A /* RecipeViewModel.swift in Sources */,
 				BD2549D129C62AAA00AC0585 /* ShakeError.swift in Sources */,
 				BD2549D529C6495600AC0585 /* IngredientState.swift in Sources */,
+				BDBCECE229C837170094936A /* RecipesView.swift in Sources */,
 				BD2549CF29C61CC100AC0585 /* IngredientResponse.swift in Sources */,
 				BDBCECE029C77A740094936A /* RecipeKind.swift in Sources */,
 				BD546F3329C70165004A7BFA /* DiskCacheImageLoader.swift in Sources */,
 				BD2549C929C6199C00AC0585 /* IngredientRepository.swift in Sources */,
 				BD205CF029C4463F00436543 /* ShakeState.swift in Sources */,
 				BD205CF429C4475800436543 /* ShakeViewModel.swift in Sources */,
-				BD2549B429C5A28700AC0585 /* IngredientView.swift in Sources */,
+				BD2549B429C5A28700AC0585 /* SearchIngredientView.swift in Sources */,
 				BD205CE029C43F5700436543 /* ContentView.swift in Sources */,
 				BD2549C529C6184F00AC0585 /* IngredientViewModel.swift in Sources */,
 				BDDA8F4829C49FFB00E1BA4B /* SVGImageExt.swift in Sources */,
 				BDBCECDA29C769F40094936A /* RecipeView.swift in Sources */,
+				BDBCECE729C853250094936A /* IngredientItemView.swift in Sources */,
 				BD205CDE29C43F5700436543 /* Shake_n_CookApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -639,6 +659,14 @@
 				minimumVersion = 0.2.2;
 			};
 		};
+		BDBCECE329C84B0D0094936A /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -691,6 +719,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BD546F3429C719EE004A7BFA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		BDBCECE429C84B0D0094936A /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDBCECE329C84B0D0094936A /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		BDDA8F4229C49E9800E1BA4B /* SVGKit */ = {
 			isa = XCSwiftPackageProductDependency;
