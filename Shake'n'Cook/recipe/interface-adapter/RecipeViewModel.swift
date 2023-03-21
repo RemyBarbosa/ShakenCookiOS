@@ -8,4 +8,5 @@
 import Foundation
 
 class RecipeViewModel: ObservableObject {
+    @Published var currentIngredients = [Ingredient]()
 }

@@ -64,7 +64,7 @@ class IngredientViewModel: ObservableObject {
         ingredientApi : IngredientAPI
     ) -> Ingredient? {
         let isSelected = viewModel?.selectedIngredients.contains { ingredient in
-            ingredient.ingredientFirebase.name == ingredientApi.knownAs && ingredient.isSelected
+            ingredient.ingredientFirebase.id == ingredientApi.foodId && ingredient.isSelected
         } ?? false
         guard let ingredientFirebase = ingredientApi.toIngredientFirebase() else { return nil }
         var ingredient = Ingredient(ingredientFirebase: ingredientFirebase)
@@ -74,7 +74,7 @@ class IngredientViewModel: ObservableObject {
     
     func search(query:String) {
         state = IngredientState.loading
-        ingredientRepository.getIngredients(query: query) { [weak self] response in
+        ingredientRepository.getIngredients(query: query.lowercased()) { [weak self] response in
             switch response {
             case .success(let ingredients):
                 let result = ingredients.compactMap{ ingredientApi in

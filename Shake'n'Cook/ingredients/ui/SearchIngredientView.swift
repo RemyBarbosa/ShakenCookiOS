@@ -39,7 +39,7 @@ struct SearchIngredientView: View {
                 case .loading :
                     ProgressView()
                 case .ingredients(let ingredients):
-                    List(ingredients, id: \.ingredientFirebase.name) { ingredient in
+                    List(ingredients, id: \.ingredientFirebase.label) { ingredient in
                         Button(action: {
                             viewModel.handleIngredient(ingredient: ingredient)
                             self.viewModel.saveIngredientOnFirebase(ingredient : ingredient)

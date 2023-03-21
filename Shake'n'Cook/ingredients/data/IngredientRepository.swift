@@ -35,10 +35,16 @@ class IngredientRepository {
             switch response.result {
             case .success(let result):
                 var ingredients = [IngredientAPI]()
-                ingredients.append(contentsOf: firebaseIngredients)
-                ingredients.append(contentsOf: result.parsed?.compactMap{$0.food} ?? [IngredientAPI]())
-                ingredients.append(contentsOf: result.hints?.compactMap{$0.food} ?? [IngredientAPI]())
-                let uniqueIngredients = Array(Set(ingredients))
+                let parsed = result.parsed?.compactMap{$0.food} ?? [IngredientAPI]()
+                let hints = result.hints?.compactMap{$0.food} ?? [IngredientAPI]()
+                let ingredientsAPI = (parsed + hints)
+                ingredients.append(contentsOf: ingredients)
+                ingredientsAPI.forEach() { ingredient in
+                    if (!ingredients.contains() { $0.foodId == ingredient.foodId || $0.knownAs == ingredient.knownAs || $0.label == ingredient.label }) {
+                        ingredients.append(ingredient)
+                    }
+                }
+                let uniqueIngredients = ingredients
                 
                 if (!uniqueIngredients.isEmpty) {
                     completion(.success(uniqueIngredients))
@@ -54,8 +60,8 @@ class IngredientRepository {
     func getIngredients(query:String, completion: @escaping (Result<[IngredientAPI], Error>) -> Void) {
         // Define the query
         let firebaseQuery = firestoreIngredientCollection
-            .whereField(Constants.name, isGreaterThanOrEqualTo: query.lowercased())
-            .whereField(Constants.name, isLessThanOrEqualTo: query.lowercased() + "\u{f8ff}")
+            .whereField(Constants.name, isGreaterThanOrEqualTo: query)
+            .whereField(Constants.name, isLessThanOrEqualTo: query + "\u{f8ff}")
             .order(by: Constants.name)
             .limit(to: 10)
         

@@ -14,7 +14,6 @@ struct IngredientItemView: View {
     var body: some View {
         HStack{
             IngredientImageView(ingredient:ingredient)
-            Image(ingredient.ingredientFirebase.label).foregroundColor(Color.black)
             Text(ingredient.ingredientFirebase.label).foregroundColor(Color.black)
             Spacer()
             if ingredient.isSelected {

@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct RecipeView: View {
+    @State private var showBottomSheet = false
     @StateObject private var imageLoader = DiskCachedImageLoader()
     @State var titleText: String = ""
     @State var quantity = ""
     @State private var selectedOption = 2
     @State private var selectedKind = QuantityKind.tbp
     @StateObject var viewModel = RecipeViewModel()
-    @State private var ingredients = [Ingredient]()
     
     
     var body: some View {
@@ -32,12 +32,12 @@ struct RecipeView: View {
                     DashedDivider().stroke(style: StrokeStyle(lineWidth: 6, dash: [8])).foregroundColor(Color.blue).frame(height: 10).padding(.top)
                     
                     Text("Add your ingredients").font(.title2).padding(.top, 8)
-                    if (!ingredients.isEmpty) {
-                        let withIndex = ingredients.enumerated().map({ $0 })
+                    if (!viewModel.currentIngredients.isEmpty) {
+                        let withIndex = viewModel.currentIngredients.enumerated().map({ $0 })
                         LazyVStack {
                             ForEach(withIndex, id: \.offset) { index, ingredient in
                                 HStack {
-                                    IngredientImageView(ingredient: ingredient)
+                                    IngredientImageView(ingredient: ingredient).padding(.leading)
                                     
                                     Text(ingredient.ingredientFirebase.name)
                                         
@@ -70,6 +70,7 @@ struct RecipeView: View {
                         width: 48.0,
                         height: 48.0
                     ) {
+                        showBottomSheet.toggle()
                     }
                 }.padding(.horizontal).padding(.bottom, 8)
                 
@@ -85,10 +86,15 @@ struct RecipeView: View {
                         Image(systemName: "checkmark").colorInvert()
                     }
                 ) {
+                    
                 }.padding()
             }
             
-        }
+        }.sheet(isPresented: $showBottomSheet, content: {
+            SearchIngredientView(initialIngredients : viewModel.currentIngredients) {  selectedIngredients in
+                viewModel.currentIngredients = selectedIngredients
+            }
+        })
     }
 }
 

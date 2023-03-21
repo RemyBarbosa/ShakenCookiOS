@@ -36,6 +36,7 @@
 		BD546F4429C719EE004A7BFA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = BD546F4329C719EE004A7BFA /* FirebaseStorage */; };
 		BD546F4629C719EE004A7BFA /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BD546F4529C719EE004A7BFA /* FirebaseStorageCombine-Community */; };
 		BD9CCC0229C9FA7F00C13C79 /* CodableFirebase in Frameworks */ = {isa = PBXBuildFile; productRef = BD9CCC0129C9FA7F00C13C79 /* CodableFirebase */; };
+		BD9CCC0429CA458C00C13C79 /* NativeExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9CCC0329CA458C00C13C79 /* NativeExt.swift */; };
 		BDBCECD329C73BF40094936A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDBCECD229C73BF40094936A /* GoogleService-Info.plist */; };
 		BDBCECDA29C769F40094936A /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECD929C769F40094936A /* RecipeView.swift */; };
 		BDBCECDD29C779110094936A /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECDC29C779110094936A /* RecipeViewModel.swift */; };
@@ -70,6 +71,7 @@
 		BD2549D029C62AAA00AC0585 /* ShakeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeError.swift; sourceTree = "<group>"; };
 		BD2549D429C6495600AC0585 /* IngredientState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientState.swift; sourceTree = "<group>"; };
 		BD546F3229C70165004A7BFA /* DiskCacheImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskCacheImageLoader.swift; sourceTree = "<group>"; };
+		BD9CCC0329CA458C00C13C79 /* NativeExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeExt.swift; sourceTree = "<group>"; };
 		BDBCECD229C73BF40094936A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		BDBCECD929C769F40094936A /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		BDBCECDC29C779110094936A /* RecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewModel.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 				BD2549D029C62AAA00AC0585 /* ShakeError.swift */,
 				BD546F3229C70165004A7BFA /* DiskCacheImageLoader.swift */,
 				BDBCECE829C85C850094936A /* FloatingActionButtonView.swift */,
+				BD9CCC0329CA458C00C13C79 /* NativeExt.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				BD546F3329C70165004A7BFA /* DiskCacheImageLoader.swift in Sources */,
 				BD2549C929C6199C00AC0585 /* IngredientRepository.swift in Sources */,
 				BD205CF029C4463F00436543 /* ShakeState.swift in Sources */,
+				BD9CCC0429CA458C00C13C79 /* NativeExt.swift in Sources */,
 				BD205CF429C4475800436543 /* ShakeViewModel.swift in Sources */,
 				BD2549B429C5A28700AC0585 /* SearchIngredientView.swift in Sources */,
 				BD205CE029C43F5700436543 /* ContentView.swift in Sources */,
