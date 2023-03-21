@@ -11,4 +11,5 @@ enum IngredientState {
     case idle
     case loading
     case ingredients(ingredients: [Ingredient])
+    case error
 }

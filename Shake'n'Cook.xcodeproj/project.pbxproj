@@ -35,6 +35,7 @@
 		BD546F4229C719EE004A7BFA /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BD546F4129C719EE004A7BFA /* FirebaseRemoteConfigSwift */; };
 		BD546F4429C719EE004A7BFA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = BD546F4329C719EE004A7BFA /* FirebaseStorage */; };
 		BD546F4629C719EE004A7BFA /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = BD546F4529C719EE004A7BFA /* FirebaseStorageCombine-Community */; };
+		BD9CCC0229C9FA7F00C13C79 /* CodableFirebase in Frameworks */ = {isa = PBXBuildFile; productRef = BD9CCC0129C9FA7F00C13C79 /* CodableFirebase */; };
 		BDBCECD329C73BF40094936A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDBCECD229C73BF40094936A /* GoogleService-Info.plist */; };
 		BDBCECDA29C769F40094936A /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECD929C769F40094936A /* RecipeView.swift */; };
 		BDBCECDD29C779110094936A /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBCECDC29C779110094936A /* RecipeViewModel.swift */; };
@@ -85,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD9CCC0229C9FA7F00C13C79 /* CodableFirebase in Frameworks */,
 				BD546F4029C719EE004A7BFA /* FirebaseRemoteConfig in Frameworks */,
 				BD2549CC29C61B4D00AC0585 /* Alamofire in Frameworks */,
 				BDDA8F4529C49EB900E1BA4B /* SVGKitSwift in Frameworks */,
@@ -336,6 +338,7 @@
 				BD546F4329C719EE004A7BFA /* FirebaseStorage */,
 				BD546F4529C719EE004A7BFA /* FirebaseStorageCombine-Community */,
 				BDBCECE429C84B0D0094936A /* Kingfisher */,
+				BD9CCC0129C9FA7F00C13C79 /* CodableFirebase */,
 			);
 			productName = "Shake'n'Cook";
 			productReference = BD205CDA29C43F5700436543 /* Shake'n'Cook.app */;
@@ -719,6 +722,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BD546F3429C719EE004A7BFA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		BD9CCC0129C9FA7F00C13C79 /* CodableFirebase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BDBCECD429C74F710094936A /* XCRemoteSwiftPackageReference "CodableFirebase" */;
+			productName = CodableFirebase;
 		};
 		BDBCECE429C84B0D0094936A /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

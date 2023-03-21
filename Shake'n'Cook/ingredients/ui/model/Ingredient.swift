@@ -7,9 +7,11 @@
 
 import Foundation
 
-struct Ingredient : Hashable, Identifiable{
-    let id: String
-    let name: String
-    let pictureUrl: String?
+struct Ingredient : Hashable {
+    let ingredientFirebase: IngredientFirebase
     var isSelected: Bool = false
+    
+    static func defaultIngredient() -> Ingredient {
+        return Ingredient(ingredientFirebase: IngredientFirebase.defaultIngredient())
+    }
 }

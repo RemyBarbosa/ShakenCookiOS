@@ -25,8 +25,8 @@ struct ShakeView: View {
                     case .shaked(let count):
                         Text("Shake cunt : \(count)").font(.headline)
                     case .addFilter(let ingredients) :
-                        List(ingredients, id: \.name) { ingredient in
-                            Text(" \(ingredient.name)").font(.largeTitle)
+                        List(ingredients, id: \.ingredientFirebase.name) { ingredient in
+                            Text(" \(ingredient.ingredientFirebase.name)").font(.largeTitle)
                         }
                         .listStyle(PlainListStyle())
                     }

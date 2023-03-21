@@ -9,5 +9,6 @@ import Foundation
 
 enum ShakeError: Error {
     case nullableError(message: String)
+    case firebaseNoDocument(message: String)
     case networkError(message: String)
 }

@@ -17,6 +17,7 @@ struct Shake_n_CookApp: App {
                 UserDefaults.standard.set(user.uid, forKey: "firebaseUserId")
             }
         }
+        
         // Later in the app, retrieve the currentUserID from UserDefaults
         //        if let currentUserID = UserDefaults.standard.string(forKey: "firebaseUserId") {
         //          print(currentUserID)

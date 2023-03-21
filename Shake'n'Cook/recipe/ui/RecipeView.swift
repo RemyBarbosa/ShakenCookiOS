@@ -14,17 +14,8 @@ struct RecipeView: View {
     @State private var selectedOption = 2
     @State private var selectedKind = QuantityKind.tbp
     @StateObject var viewModel = RecipeViewModel()
-    @State private var ingredients =
-    [
-        Ingredient(id: "id1", name: "tomate", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/shake-n-cook.appspot.com/o/ingredients%2F1909.jpg?alt=media&token=988841ba-aa6b-4c84-9fcc-b33ea2e03296"),
-        Ingredient(id: "id2", name: "persil plat", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/shake-n-cook.appspot.com/o/ingredients%2F1909.jpg?alt=media&token=988841ba-aa6b-4c84-9fcc-b33ea2e03296"),
-        Ingredient(id: "id3", name: "garlic powder mofo", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/shake-n-cook.appspot.com/o/ingredients%2F1909.jpg?alt=media&token=988841ba-aa6b-4c84-9fcc-b33ea2e03296"),
-        Ingredient(id: "id4", name: "4", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/shake-n-cook.appspot.com/o/ingredients%2F1909.jpg?alt=media&token=988841ba-aa6b-4c84-9fcc-b33ea2e03296"),
-        Ingredient(id: "id5", name: "5", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/shake-n-cook.appspot.com/o/ingredients%2F1909.jpg?alt=media&token=988841ba-aa6b-4c84-9fcc-b33ea2e03296"),
-        Ingredient(id: "id6", name: "6", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/shake-n-cook.appspot.com/o/ingredients%2F1909.jpg?alt=media&token=988841ba-aa6b-4c84-9fcc-b33ea2e03296"),
-        Ingredient(id: "id8", name: "8", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/shake-n-cook.appspot.com/o/ingredients%2F1909.jpg?alt=media&token=988841ba-aa6b-4c84-9fcc-b33ea2e03296"),
-        Ingredient(id: "id7", name: "7", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/shake-n-cook.appspot.com/o/ingredients%2F1909.jpg?alt=media&token=988841ba-aa6b-4c84-9fcc-b33ea2e03296")
-    ]
+    @State private var ingredients = [Ingredient]()
+    
     
     var body: some View {
         
@@ -48,7 +39,7 @@ struct RecipeView: View {
                                 HStack {
                                     IngredientImageView(ingredient: ingredient)
                                     
-                                        Text(ingredient.name)
+                                    Text(ingredient.ingredientFirebase.name)
                                         
                                         Spacer()
                                             TextField("1000", text: $quantity)

@@ -14,8 +14,8 @@ struct IngredientItemView: View {
     var body: some View {
         HStack{
             IngredientImageView(ingredient:ingredient)
-            Image(ingredient.name).foregroundColor(Color.black)
-            Text(ingredient.name).foregroundColor(Color.black)
+            Image(ingredient.ingredientFirebase.label).foregroundColor(Color.black)
+            Text(ingredient.ingredientFirebase.label).foregroundColor(Color.black)
             Spacer()
             if ingredient.isSelected {
                 Image(systemName: "checkmark")
@@ -29,7 +29,7 @@ struct IngredientImageView: View {
     var width = 48.0
     var height = 48.0
     var body: some View {
-        if let pictureUrl = URL(string: ingredient.pictureUrl ?? "") {
+        if let pictureUrl = URL(string: ingredient.ingredientFirebase.pictureUrl ?? "") {
             KFImage(pictureUrl)
                 .placeholder {
                     ProgressView()
@@ -51,6 +51,6 @@ struct IngredientImageView: View {
 
 struct IngredientItemView_Previews: PreviewProvider {
     static var previews: some View {
-        IngredientItemView(ingredient: Ingredient(id: "id", name: "name", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/shake-n-cook.appspot.com/o/ingredients%2F1909.jpg?alt=media&token=988841ba-aa6b-4c84-9fcc-b33ea2e03296"))
+        IngredientItemView(ingredient: Ingredient.defaultIngredient())
     }
 }

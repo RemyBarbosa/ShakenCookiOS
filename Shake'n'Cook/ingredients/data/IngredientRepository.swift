@@ -13,15 +13,11 @@ import SwiftUI
 
 class IngredientRepository {
     struct Constants {
-        static let endpoint = "https://trackapi.nutritionix.com/v2/search/instant"
-        static let headers: HTTPHeaders = [
-            "x-app-id": "2cf21d04",
-            "x-app-key": "72a98ea691c2301c2443931a16529a5e"
-        ]
+        static let endpoint = "https://api.edamam.com/api/food-database/v2/parser?app_id=d8c1980d&app_key=8e1c77a50f5a30e4e16377c7c039323d"
         static let name = "name"
         static let nameFr = "name_fr"
-        static let pictureUrl = "picture_url"
         static let ingredients = "ingredients"
+        static let nutrient = "nutrient"
     }
     
     let firestoreIngredientCollection = Firestore.firestore().collection(Constants.ingredients)
@@ -29,15 +25,23 @@ class IngredientRepository {
     init() {
     }
     
-    fileprivate func getIngredientByWrongAPI(_ query: String, _ completion: @escaping (Result<[IngredientAPI], Error>) -> Void) {
-        let parameters: Parameters = [
-            "query": query,
+    fileprivate func getIngredientByAPI(_ query: String, _ completion: @escaping (Result<[IngredientAPI], Error>) -> Void, _ firebaseIngredients : [IngredientAPI] = [IngredientAPI]()) {
+        let parameters = [
+            "ingr": query,
+            "app_id": "d8c1980d",
+            "app_key": "8e1c77a50f5a30e4e16377c7c039323d"
         ]
-        AF.request(Constants.endpoint, parameters: parameters, headers: Constants.headers).responseDecodable(of: IngredientResponse.self) { response in
+        AF.request(Constants.endpoint, method: .get, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default).responseDecodable(of: FoodResponse.self) { response in
             switch response.result {
-            case .success(let answer):
-                if let ingredients = answer.common {
-                    completion(.success(ingredients))
+            case .success(let result):
+                var ingredients = [IngredientAPI]()
+                ingredients.append(contentsOf: firebaseIngredients)
+                ingredients.append(contentsOf: result.parsed?.compactMap{$0.food} ?? [IngredientAPI]())
+                ingredients.append(contentsOf: result.hints?.compactMap{$0.food} ?? [IngredientAPI]())
+                let uniqueIngredients = Array(Set(ingredients))
+                
+                if (!uniqueIngredients.isEmpty) {
+                    completion(.success(uniqueIngredients))
                 } else {
                     completion(.failure(ShakeError.nullableError(message: "impossible to retrieve ingredients")))
                 }
@@ -58,33 +62,35 @@ class IngredientRepository {
         firebaseQuery.getDocuments { (querySnapshot, error) in
             if let error = error {
                 print(error)
-                self.getIngredientByWrongAPI(query, completion)
+                self.getIngredientByAPI(query, completion)
                 return
             }
             
             guard let querySnapshot = querySnapshot else {
-                self.getIngredientByWrongAPI(query, completion)
+                self.getIngredientByAPI(query, completion)
                 return
             }
             
             if (!querySnapshot.documents.isEmpty) {
-                let ingredients = querySnapshot.documents.compactMap{ document in
-                    let data = document.data()
-                    
-                    return IngredientAPI(
-                        food_name: data[Constants.name] as? String ?? "",
-                        tag_id: document.documentID,
-                        photo: IngredientPhoto(thumb: data[Constants.pictureUrl] as? String)
-                    )
+                let ingredients = querySnapshot.documents.compactMap() { document in
+                    do {
+                        return try document.data(as: IngredientFirebase.self).toIngredientAPI()
+                    } catch {
+                        self.getIngredientByAPI(query, completion)
+                        print("Error decoding ingredient: \(error.localizedDescription)")
+                        return nil
+                    }
                 }
-                completion(.success(ingredients))
+                self.getIngredientByAPI(query, completion, ingredients)
             } else {
-                self.getIngredientByWrongAPI(query, completion)
+                self.getIngredientByAPI(query, completion)
             }
         }
     }
     
     func saveIngredientOnFirebase(ingredient: Ingredient) {
+        var ingredient = ingredient.ingredientFirebase
+        guard let ingredientId = ingredient.id else { return }
         guard let url = URL(string: ingredient.pictureUrl ?? "") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -104,7 +110,7 @@ class IngredientRepository {
             }
             
             let storageRef = Storage.storage().reference()
-            let imageRef = storageRef.child("\(Constants.ingredients)/\(ingredient.id).jpg")
+            let imageRef = storageRef.child("\(Constants.ingredients)/\(ingredientId).jpg")
             
             let uploadTask = imageRef.putData(imageData, metadata: nil) { metadata, error in
                 if (error != nil) {
@@ -120,13 +126,21 @@ class IngredientRepository {
                 imageRef.downloadURL { url, error in
                     guard let downloadURL = url else { return }
                     // Add the download URL to a new Firestore document
-                    let docRef = self.firestoreIngredientCollection.document(ingredient.id)
-                    let data = [
-                        Constants.name: ingredient.name,
-                        Constants.nameFr: ingredient.name,
-                        Constants.pictureUrl: downloadURL.absoluteString
-                    ]
-                    docRef.setData(data)
+                    ingredient.pictureUrl = downloadURL.absoluteString
+                    do {
+                        let collectionRef = self.firestoreIngredientCollection.document(ingredientId)
+                        
+                        try collectionRef.setData(from : ingredient) { error in
+                            if let error = error {
+                                print("Error adding new ingredient: \(error.localizedDescription)")
+                            } else {
+                                print("New ingredient added to Firestore")
+                            }
+                        }
+                    }
+                    catch {
+                        print("Error when trying to encode book: \(error)")
+                    }
                 }
             }
         }

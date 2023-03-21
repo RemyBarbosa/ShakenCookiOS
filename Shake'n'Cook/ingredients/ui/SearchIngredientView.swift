@@ -33,13 +33,13 @@ struct SearchIngredientView: View {
                 Spacer()
                 switch viewModel.state {
                 case .idle :
-                    HStack{
-                        Text("What do you have in your fridge?")
-                    }
+                    Text("What do you have in your fridge?")
+                case .error :
+                    Text("Oups we can't find that... try to find somethinf else ?")
                 case .loading :
                     ProgressView()
                 case .ingredients(let ingredients):
-                    List(ingredients, id: \.name) { ingredient in
+                    List(ingredients, id: \.ingredientFirebase.name) { ingredient in
                         Button(action: {
                             viewModel.handleIngredient(ingredient: ingredient)
                             self.viewModel.saveIngredientOnFirebase(ingredient : ingredient)
