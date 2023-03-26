@@ -25,7 +25,7 @@ enum RecipeKind : CaseIterable{
         case .dessert:
             return "Dessert"
         case .beverage:
-            return "West"
+            return "Beverage"
         }
     }
 }

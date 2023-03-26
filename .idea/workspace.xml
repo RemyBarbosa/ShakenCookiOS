@@ -5,16 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f714eed3-9df4-432a-abf7-dec306a8710b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Shake'n'Cook/ingredients/ui/IngredientItemView.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shake'n'Cook/recipe/ui/RecipesView.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Shake'n'Cook/utils/FloatingActionButtonView.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Shake'n'Cook/recipe/ui/model/Quantity.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Shake'n'Cook/utils/DoubleNumberFormatter.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Shake'n'Cook.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Shake'n'Cook.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Shake'n'Cook.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shake'n'Cook.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shake'n'Cook/ingredients/data/IngredientRepository.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/ingredients/data/IngredientRepository.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shake'n'Cook/ingredients/ui/IngredientView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/ingredients/ui/IngredientView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shake'n'Cook/recipe/interface-adapter/RecipeViewModel.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/recipe/interface-adapter/RecipeViewModel.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Shake'n'Cook/recipe/ui/RecipeView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/recipe/ui/RecipeView.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shake'n'Cook/shake/ShakeView.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/shake/ShakeView.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shake'n'Cook/recipe/ui/model/QuantityKind.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Shake'n'Cook/recipe/ui/model/QuantityKind.swift" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +28,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="AppCode" />
     <option name="majorVersion" value="2022" />
@@ -42,13 +43,14 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;OBJC.PRESERVED_TARGET_SELECTION&quot;: &quot;Shake'n'Cook&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/remybarbosa/workspace/perso/ios/Shake'n'Cook/Shake'n'Cook.xcodeproj&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Swift&quot;
   }
 }</component>
   <component name="RunManager">
@@ -77,7 +79,44 @@
       <workItem from="1679220284406" duration="54000" />
       <workItem from="1679298797302" duration="18000" />
       <workItem from="1679306590859" duration="652000" />
+      <workItem from="1679641469723" duration="616000" />
+      <workItem from="1679642298672" duration="5000" />
+      <workItem from="1679643727119" duration="55000" />
+      <workItem from="1679644365211" duration="16000" />
+      <workItem from="1679644398380" duration="28000" />
+      <workItem from="1679644970272" duration="59000" />
+      <workItem from="1679645302371" duration="16000" />
+      <workItem from="1679645334273" duration="15000" />
+      <workItem from="1679645745535" duration="2000" />
+      <workItem from="1679667555837" duration="1261000" />
+      <workItem from="1679668833214" duration="84000" />
+      <workItem from="1679669001813" duration="952000" />
+      <workItem from="1679671459466" duration="58000" />
+      <workItem from="1679671523247" duration="643000" />
+      <workItem from="1679846826432" duration="1192000" />
+      <workItem from="1679852885774" duration="25000" />
+      <workItem from="1679852961257" duration="3000" />
+      <workItem from="1679852981230" duration="6000" />
+      <workItem from="1679853420228" duration="15000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
