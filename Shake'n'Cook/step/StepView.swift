@@ -15,6 +15,7 @@ struct StepView: View {
     var initialIngredients: [Ingredient]
     var currentStep: Step? = nil
     var onDismiss: (([Ingredient], String) -> Void)?
+    @State var isStepFilled: Bool = true
     
     var body: some View {
         VStack {
@@ -47,11 +48,16 @@ struct StepView: View {
                             }
                         }
                     }
-                }.frame(height: 60)
+                }.frame(height: 60).padding(.horizontal)
             }
             
             DashedDivider().stroke(style: StrokeStyle(lineWidth: 6, dash: [8])).foregroundColor(Color.blue).frame(height: 10)
             
+            if !isStepFilled && description.isEmpty {
+                Text("Please explain the step")
+                    .foregroundColor(.red)
+                    .padding(.bottom, 10)
+            }
             TextEditor(text: $description)
                 .frame(minHeight: 100)
                 .multilineTextAlignment(.leading)
@@ -70,11 +76,19 @@ struct StepView: View {
                         Image(systemName: "checkmark").colorInvert()
                     }
                 ) {
+                    if (description.isEmpty) {
+                        isStepFilled = false
+                        return
+                    } else {
+                        isStepFilled = true
+                    }
                     presentationMode.wrappedValue.dismiss()
                 }.padding()
             }
         }.onDisappear {
-            self.onDismiss?(viewModel.currentIngredients.filter { $0.isSelected }, description)
+            if (!description.isEmpty && description != placeHolderString) {
+                self.onDismiss?(viewModel.currentIngredients.filter { $0.isSelected }, description)
+            }
         }
     }
     

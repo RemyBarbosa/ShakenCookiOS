@@ -12,28 +12,42 @@ struct RecipeView: View {
     @State private var showBottomSheetSteps = false
     @StateObject private var imageLoader = DiskCachedImageLoader()
     @State var titleText: String = ""
-    @State var quantity = ""
-    @State private var selectedOption = 2
-    @StateObject var viewModel = RecipeViewModel()
+    @State private var recipeKind = RecipeKind.mainCourse
+    @StateObject var viewModel = RecipeViewModel(recipesRepository: RecipesRepository())
     let numberFormatter = DoubleNumberFormatter()
     @State var currentStep : Step?
+    @State var isTitleFilled: Bool = true
+    @State var isIngredientsFilled: Bool = true
+    @State var isStepsFilled: Bool = true
     
     var body: some View {
         
         ZStack {
             ScrollView {
                 VStack {
-                    Text("Title").font(.title).padding(.horizontal).padding(.top)
-                    TextField("Your awesome recipe", text: $titleText).padding(.horizontal).multilineTextAlignment(.center)
-                    Picker(selection: $selectedOption, label: Text("Select an option")) {
-                        ForEach(Array(RecipeKind.allCases.enumerated()), id: \.1) { index, item in
-                            Text(RecipeKind.allCases[index].title).tag(index)
+                    TextField("Your awesome recipe", text: $titleText)
+                        .padding(.horizontal).padding(.top).multilineTextAlignment(.center)
+                    if !isTitleFilled && titleText.isEmpty {
+                        Text("Please enter recipe title.")
+                            .foregroundColor(.red)
+                            .padding(.bottom, 10)
+                    }
+                    
+                    let recipesKinds = RecipeKind.allCases
+                    Picker(selection: $recipeKind, label: Text("Select an option")) {
+                        ForEach(recipesKinds, id: \.self) { kind in
+                            Text(kind.title).tag(kind)
                         }
                     }.padding(.horizontal).padding(.top).pickerStyle(.menu)
                     DashedDivider().stroke(style: StrokeStyle(lineWidth: 6, dash: [8])).foregroundColor(Color.blue).frame(height: 10)
                 }
                 VStack {
                     Text("Add your ingredients").font(.title2).padding(.top, 8)
+                    if !isIngredientsFilled {
+                        Text("Please add some ingredients.")
+                            .foregroundColor(.red)
+                            .padding(.bottom, 10)
+                    }
                     if (!viewModel.currentIngredients.isEmpty) {
                         let withIndex = viewModel.currentIngredients.enumerated().map({ $0 })
                         LazyVStack {
@@ -49,9 +63,9 @@ struct RecipeView: View {
                                         .frame(width: 45)
                                         .multilineTextAlignment(.trailing)
                                     
-                                    let quantityKinds = QuantityKind.allCases.enumerated().map({ $0 })
+                                    let quantityKinds = QuantityKind.allCases
                                     Menu {
-                                        ForEach(quantityKinds, id: \.offset) { index, kind in
+                                        ForEach(quantityKinds, id: \.self) { kind in
                                             Button(action: { viewModel.currentQuantities[ingredientIndex].kind = kind }) {
                                                 Text(kind.title)
                                             }
@@ -89,7 +103,11 @@ struct RecipeView: View {
                 }
                 VStack {
                     Text("Add recipes steps").font(.title2).padding(.top, 8)
-                    
+                    if !isStepsFilled {
+                        Text("Please add some steps.")
+                            .foregroundColor(.red)
+                            .padding(.bottom, 10)
+                    }
                     if (!viewModel.currentSteps.isEmpty) {
                         let withIndex = viewModel.currentSteps.enumerated().map({ $0 })
                         LazyVStack {
@@ -110,6 +128,11 @@ struct RecipeView: View {
                                         }) {
                                             Image(systemName: "pencil").padding(.trailing)
                                         }
+                                        Button(action: {
+                                            viewModel.removeStep(step: step)
+                                        }) {
+                                            Image(systemName: "trash").padding(.trailing)
+                                        }
                                     }.frame(alignment: Alignment.leading)
                                     HStack {
                                         Text(step.description).font(.subheadline).padding(.leading).frame(alignment: Alignment.leading)
@@ -129,6 +152,12 @@ struct RecipeView: View {
                             width: 36.0,
                             height: 36.0
                         ) {
+                            if (viewModel.currentIngredients.isEmpty) {
+                                isIngredientsFilled = false
+                                return
+                            } else {
+                                isIngredientsFilled = true
+                            }
                             showBottomSheetSteps.toggle()
                         }
                     }.padding(.horizontal).padding(.bottom, 8)
@@ -146,17 +175,43 @@ struct RecipeView: View {
                             Image(systemName: "checkmark").colorInvert()
                         }
                     ) {
+                        if (titleText.isEmpty) {
+                            isTitleFilled = false
+                            return
+                        } else {
+                            isTitleFilled = true
+                        }
                         
+                        if (viewModel.currentIngredients.isEmpty) {
+                            isIngredientsFilled = false
+                            return
+                        } else {
+                            isIngredientsFilled = true
+                        }
+                        
+                        if (viewModel.currentSteps.isEmpty) {
+                            isStepsFilled = false
+                            return
+                        } else {
+                            isStepsFilled = true
+                        }
+                        
+                        viewModel.uploadRecipe(title: titleText, recipeKind: recipeKind)
                     }.padding()
                 }
             }
             
         }.sheet(isPresented: $showBottomSheet, content: {
             SearchIngredientView(initialIngredients : viewModel.currentIngredients) {  selectedIngredients in
+                if (!selectedIngredients.isEmpty) {
+                    isIngredientsFilled = true
+                }
                 viewModel.addIngredientsToList(ingredientsToAdd: selectedIngredients)
             }
         }).sheet(isPresented: $showBottomSheetSteps, content: {
             StepView(initialIngredients: viewModel.currentIngredients, currentStep : currentStep) {ingredients, description in
+                
+                isStepsFilled = true
                 viewModel.handleStep(ingredients: ingredients, description: description, currentStep : currentStep)
                 currentStep = nil
             }

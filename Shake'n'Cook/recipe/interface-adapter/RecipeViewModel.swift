@@ -8,9 +8,16 @@
 import Foundation
 
 class RecipeViewModel: ObservableObject {
+    private let recipesRepository: RecipesRepository
     @Published var currentIngredients = [Ingredient]()
     @Published var currentQuantities = [Quantity]()
     @Published var currentSteps = [Step]()
+
+    @Published var state  = RecipeState.idle
+    
+    init(recipesRepository: RecipesRepository) {
+        self.recipesRepository = recipesRepository
+    }
     
     func getIngredients(step : Step) -> [Ingredient] {
         return step.ingredientIds.compactMap{ ingredientId in currentIngredients.first { ingredientId == $0.ingredientFirebase.id } }
@@ -46,6 +53,34 @@ class RecipeViewModel: ObservableObject {
             if (!currentIngredients.contains() { $0.ingredientFirebase.id == ingredient.ingredientFirebase.id }) {
                 currentIngredients.append(ingredient)
                 currentQuantities.append(Quantity(ingredientId: ingredient.ingredientFirebase.id))
+            }
+        }
+    }
+    
+    func removeStep(step : Step) {
+        if let index = currentSteps.firstIndex(where: { $0.number == step.number }) {
+            currentSteps.remove(at: index)
+        }
+    }
+    
+    func uploadRecipe(title : String, recipeKind : RecipeKind) {
+        state = RecipeState.loading
+        guard let currentUserID = UserDefaults.standard.string(forKey: "firebaseUserId") else {
+            return
+        }
+        let recipe = Recipe(
+            userId: currentUserID,
+            title: title,
+            kind: recipeKind,
+            ingredients: currentIngredients.compactMap{$0.ingredientFirebase},
+            quantities: currentQuantities,
+            steps: currentSteps
+        )
+        recipesRepository.uploadRecipe(recipe: recipe) { success in
+            if (success) {
+                self.state = RecipeState.uploaded
+            } else {
+                self.state = RecipeState.error
             }
         }
     }

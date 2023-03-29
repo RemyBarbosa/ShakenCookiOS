@@ -12,7 +12,7 @@ import FirebaseFirestore
 import SwiftUI
 
 class IngredientRepository {
-    struct Constants {
+    private struct Constants {
         static let endpoint = "https://api.edamam.com/api/food-database/v2/parser?app_id=d8c1980d&app_key=8e1c77a50f5a30e4e16377c7c039323d"
         static let name = "name"
         static let nameFr = "name_fr"
@@ -20,7 +20,7 @@ class IngredientRepository {
         static let nutrient = "nutrient"
     }
     
-    let firestoreIngredientCollection = Firestore.firestore().collection(Constants.ingredients)
+    private let firestoreIngredientCollection = Firestore.firestore().collection(Constants.ingredients)
     
     init() {
     }

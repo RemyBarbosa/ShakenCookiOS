@@ -18,9 +18,8 @@ struct FloatingActionButtonView<Label> : View where Label : View {
         Button(action: {
             action()
         }, label: {
-            self.label()
+            self.label().frame(width: width, height: height)
         })
-        .frame(width: width, height: height)
         .background(Color.blue)
         .cornerRadius(200)
         .shadow(color: Color.black.opacity(0.3),radius: 3,   x: 3, y: 3)
