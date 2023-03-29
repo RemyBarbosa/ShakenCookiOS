@@ -42,6 +42,11 @@
 		BDA61F9A29D483FF002FC508 /* RecipeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA61F9929D483FF002FC508 /* RecipeState.swift */; };
 		BDA61FA029D487DD002FC508 /* RecipesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA61F9F29D487DD002FC508 /* RecipesViewModel.swift */; };
 		BDA61FA229D487EC002FC508 /* RecipesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA61FA129D487EC002FC508 /* RecipesState.swift */; };
+		BDA61FA829D4B859002FC508 /* kcal.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDA61FA429D4B859002FC508 /* kcal.svg */; };
+		BDA61FA929D4B859002FC508 /* fat.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDA61FA529D4B859002FC508 /* fat.svg */; };
+		BDA61FAA29D4B859002FC508 /* prot.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDA61FA629D4B859002FC508 /* prot.svg */; };
+		BDA61FAE29D4B994002FC508 /* fiber.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDA61FAC29D4B994002FC508 /* fiber.svg */; };
+		BDA61FAF29D4B994002FC508 /* carbs.svg in Resources */ = {isa = PBXBuildFile; fileRef = BDA61FAD29D4B994002FC508 /* carbs.svg */; };
 		BDB4E31D29D0CF10009F2F45 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4E31C29D0CF10009F2F45 /* StepView.swift */; };
 		BDB4E31F29D0CF8C009F2F45 /* StepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4E31E29D0CF8C009F2F45 /* StepViewModel.swift */; };
 		BDB4E32229D0D0C4009F2F45 /* ObjectCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB4E32129D0D0C4009F2F45 /* ObjectCreator.swift */; };
@@ -84,6 +89,11 @@
 		BDA61F9929D483FF002FC508 /* RecipeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeState.swift; sourceTree = "<group>"; };
 		BDA61F9F29D487DD002FC508 /* RecipesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewModel.swift; sourceTree = "<group>"; };
 		BDA61FA129D487EC002FC508 /* RecipesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesState.swift; sourceTree = "<group>"; };
+		BDA61FA429D4B859002FC508 /* kcal.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = kcal.svg; sourceTree = "<group>"; };
+		BDA61FA529D4B859002FC508 /* fat.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fat.svg; sourceTree = "<group>"; };
+		BDA61FA629D4B859002FC508 /* prot.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = prot.svg; sourceTree = "<group>"; };
+		BDA61FAC29D4B994002FC508 /* fiber.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = fiber.svg; sourceTree = "<group>"; };
+		BDA61FAD29D4B994002FC508 /* carbs.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = carbs.svg; sourceTree = "<group>"; };
 		BDB4E31C29D0CF10009F2F45 /* StepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
 		BDB4E31E29D0CF8C009F2F45 /* StepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepViewModel.swift; sourceTree = "<group>"; };
 		BDB4E32129D0D0C4009F2F45 /* ObjectCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCreator.swift; sourceTree = "<group>"; };
@@ -239,6 +249,11 @@
 		BD2549BE29C5B99F00AC0585 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				BDA61FAD29D4B994002FC508 /* carbs.svg */,
+				BDA61FAC29D4B994002FC508 /* fiber.svg */,
+				BDA61FA529D4B859002FC508 /* fat.svg */,
+				BDA61FA429D4B859002FC508 /* kcal.svg */,
+				BDA61FA629D4B859002FC508 /* prot.svg */,
 				BD2549BF29C5B9EB00AC0585 /* fridge.svg */,
 				BD2549C029C5B9EB00AC0585 /* shake.svg */,
 			);
@@ -469,7 +484,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDA61FAF29D4B994002FC508 /* carbs.svg in Resources */,
 				BD2549C129C5B9EB00AC0585 /* fridge.svg in Resources */,
+				BDA61FA829D4B859002FC508 /* kcal.svg in Resources */,
+				BDA61FA929D4B859002FC508 /* fat.svg in Resources */,
+				BDA61FAE29D4B994002FC508 /* fiber.svg in Resources */,
+				BDA61FAA29D4B859002FC508 /* prot.svg in Resources */,
 				BD205CE529C43F5800436543 /* Preview Assets.xcassets in Resources */,
 				BDBCECD329C73BF40094936A /* GoogleService-Info.plist in Resources */,
 				BD205CE229C43F5800436543 /* Assets.xcassets in Resources */,

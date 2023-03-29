@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RecipeView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var showBottomSheet = false
     @State private var showBottomSheetSteps = false
     @StateObject private var imageLoader = DiskCachedImageLoader()
@@ -19,6 +20,8 @@ struct RecipeView: View {
     @State var isTitleFilled: Bool = true
     @State var isIngredientsFilled: Bool = true
     @State var isStepsFilled: Bool = true
+    @State var initialRecipe: Recipe?
+    var onDismiss: (() -> Void)?
     
     var body: some View {
         
@@ -27,6 +30,13 @@ struct RecipeView: View {
                 VStack {
                     TextField("Your awesome recipe", text: $titleText)
                         .padding(.horizontal).padding(.top).multilineTextAlignment(.center)
+                        .onAppear() {
+                            if let initialRecipe = initialRecipe {
+                                titleText = initialRecipe.title
+                                recipeKind = initialRecipe.kind
+                            }
+                            viewModel.initWith(recipe: initialRecipe)
+                        }
                     if !isTitleFilled && titleText.isEmpty {
                         Text("Please enter recipe title.")
                             .foregroundColor(.red)
@@ -196,7 +206,7 @@ struct RecipeView: View {
                             isStepsFilled = true
                         }
                         
-                        viewModel.uploadRecipe(title: titleText, recipeKind: recipeKind)
+                        viewModel.uploadRecipe(title: titleText, recipeKind: recipeKind, initialRecipe: initialRecipe)
                     }.padding()
                 }
             }
@@ -216,6 +226,19 @@ struct RecipeView: View {
                 currentStep = nil
             }
         })
+        .onChange(of: viewModel.state) { state in
+            switch viewModel.state {
+            case .idle :
+                print("idle")
+            case .error :
+                print("error")
+            case .loading :
+                print("loading")
+            case .uploaded :
+                presentationMode.wrappedValue.dismiss()
+                self.onDismiss?()
+            }
+        }
     }
 }
 

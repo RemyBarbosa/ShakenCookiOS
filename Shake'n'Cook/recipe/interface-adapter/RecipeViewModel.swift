@@ -19,6 +19,14 @@ class RecipeViewModel: ObservableObject {
         self.recipesRepository = recipesRepository
     }
     
+    func initWith(recipe : Recipe?) {
+        if let recipe = recipe {
+            currentIngredients = recipe.ingredients.map{Ingredient(ingredientFirebase: $0)}
+            currentQuantities = recipe.quantities
+            currentSteps = recipe.steps
+        }
+    }
+    
     func getIngredients(step : Step) -> [Ingredient] {
         return step.ingredientIds.compactMap{ ingredientId in currentIngredients.first { ingredientId == $0.ingredientFirebase.id } }
     }
@@ -63,12 +71,13 @@ class RecipeViewModel: ObservableObject {
         }
     }
     
-    func uploadRecipe(title : String, recipeKind : RecipeKind) {
+    func uploadRecipe(title : String, recipeKind : RecipeKind, initialRecipe : Recipe?) {
         state = RecipeState.loading
         guard let currentUserID = UserDefaults.standard.string(forKey: "firebaseUserId") else {
             return
         }
         let recipe = Recipe(
+            id: initialRecipe?.id ?? nil,
             userId: currentUserID,
             title: title,
             kind: recipeKind,
