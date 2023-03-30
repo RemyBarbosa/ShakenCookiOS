@@ -60,10 +60,15 @@ class RecipesRepository {
         
     }
     
-    func fetchAllRecipes(userId:String, completion: @escaping (Result<[Recipe], Error>) -> Void) {
-        let firebaseQuery = firestoreRecipeCollection
+    func fetchAllRecipes(userId:String, ingredientIds: [String]? = nil, completion: @escaping (Result<[Recipe], Error>) -> Void) {
+        var firebaseQuery = firestoreRecipeCollection
             .whereField(Constants.userId, isEqualTo: userId)
             .limit(to: 10)
+        if let ingredientIds = ingredientIds {
+            for ingredientId in ingredientIds {
+                firebaseQuery = firebaseQuery.whereField("ingredientIds", arrayContains: ingredientId)
+            }
+        }
         
         firebaseQuery.getDocuments(completion: { (querySnapshot, error) in
             if let error = error {

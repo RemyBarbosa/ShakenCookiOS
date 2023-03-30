@@ -11,6 +11,7 @@ import SVGKit
 struct ShakeView: View {
     
     @State private var showBottomSheet = false
+    @State private var showRecipeBottomSheet = false
     @StateObject var viewModel = ShakeViewModel()
     
     var body: some View {
@@ -22,13 +23,36 @@ struct ShakeView: View {
                     switch viewModel.state {
                     case .idle:
                         Text("Shake Me").font(.largeTitle)
-                    case .shaked(let count):
-                        Text("Shake cunt : \(count)").font(.headline)
-                    case .addFilter(let ingredients) :
-                        List(ingredients, id: \.ingredientFirebase.label) { ingredient in
-                            Text(" \(ingredient.ingredientFirebase.label)").font(.largeTitle)
+                    case .loading:
+                        ProgressView()
+                    case .error:
+                        Text("Something went wrong plz try again").font(.largeTitle)
+                    case .noRecipe(let isFiltered):
+                        if (isFiltered) {
+                            Text("No recipe with thoses ingredients").font(.largeTitle)
+                        } else {
+                            Text("No recipe ").font(.largeTitle)
                         }
-                        .listStyle(PlainListStyle())
+                    case .shaked(_):
+                        Text("Recipe Found !").font(.largeTitle)
+                    case .addFilter(let ingredients) :
+                        VStack {
+                            Text("Now Shake Again !").font(.title).padding()
+                            Button(action: {
+                                viewModel.resetFilter()
+                            }) {
+                                HStack {
+                                    Spacer()
+                                    Image(systemName: "clear.fill")
+                                    Text("Clear filters")
+                                    Spacer()
+                                }
+                            }.padding()
+                            List(ingredients, id: \.ingredientFirebase.label) { ingredient in
+                                IngredientItemView(ingredient: ingredient)
+                            }
+                            .listStyle(PlainListStyle()).padding()
+                        }
                     }
                     Spacer()
                 }
@@ -41,9 +65,9 @@ struct ShakeView: View {
                     FloatingActionButtonView(
                         label: {
                             Image("fridge")
-                              .resizable()
-                              .frame(width: 35, height: 50)
-                              .foregroundColor(Color("iconButtonColor"))
+                                .resizable()
+                                .frame(width: 35, height: 50)
+                                .foregroundColor(Color("iconButtonColor"))
                         }
                     ) {
                         showBottomSheet.toggle()
@@ -57,6 +81,17 @@ struct ShakeView: View {
                 viewModel.setFilteredShake(selectedIngredients:selectedIngredients)
             }
         })
+        .sheet(isPresented: $showRecipeBottomSheet, content: {
+            if case .shaked(let recipe) = viewModel.state {
+                RecipeView(initialRecipe: recipe, onDisappear: {
+                    viewModel.resetFilter()
+                })
+            }
+        }).onChange(of: viewModel.state) { state in
+            if case .shaked(_) = state {
+                showRecipeBottomSheet = true
+            }
+        }
     }
 }
 

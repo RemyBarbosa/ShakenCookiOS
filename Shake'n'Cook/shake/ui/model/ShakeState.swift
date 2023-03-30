@@ -7,8 +7,11 @@
 
 import Foundation
 
-enum ShakeState {
+enum ShakeState : Equatable {
     case idle
-    case shaked(count: Int)
+    case loading
+    case noRecipe(isFiltered:Bool)
+    case shaked(recipe:Recipe)
     case addFilter(ingredients: [Ingredient])
+    case error
 }

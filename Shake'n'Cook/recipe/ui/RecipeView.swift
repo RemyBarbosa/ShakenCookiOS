@@ -21,6 +21,7 @@ struct RecipeView: View {
     @State var isStepsFilled: Bool = true
     @State var initialRecipe: Recipe?
     var onDismiss: ((Recipe?) -> Void)?
+    var onDisappear: (() -> Void)?
     
     var body: some View {
         
@@ -243,6 +244,7 @@ struct RecipeView: View {
                 viewModel.saveCache(title: titleText, recipeKind: recipeKind, initialRecipe: initialRecipe)
                 self.onDismiss?(viewModel.currentRecipe)
             }
+            self.onDisappear?()
         }
     }
 }

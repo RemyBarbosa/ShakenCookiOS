@@ -8,13 +8,42 @@
 import Foundation
 
 class ShakeViewModel: ObservableObject {
+    private let recipesRepository = RecipesRepository()
     @Published var state = ShakeState.idle
     @Published var currentIngredients = [Ingredient]()
-    private var shakeCount = 0
+    
+    fileprivate func handleFetchRecipesResult(_ result: Result<[Recipe], Error>) {
+        switch result {
+        case .success(let recipes):
+            guard let  randomRecipe = recipes.randomElement() else {
+                print("no random recipe")
+                self.state = ShakeState.noRecipe(isFiltered: false)
+                return
+            }
+            self.state = ShakeState.shaked(recipe: randomRecipe)
+        case .failure(let error):
+            print("Error fetching recipes: \(error.localizedDescription)")
+            self.state = ShakeState.error
+        }
+    }
     
     func deviceHasBeenShake() {
-        shakeCount+=1
-        state = ShakeState.shaked(count: shakeCount)
+        state = ShakeState.loading
+        guard let currentUserID = UserDefaults.standard.string(forKey: "firebaseUserId") else {
+            return
+        }
+        if (currentIngredients.isEmpty) {
+            recipesRepository.fetchAllRecipes(userId: currentUserID) { result in
+                self.handleFetchRecipesResult(result)
+            }
+        } else {
+            recipesRepository.fetchAllRecipes(
+                userId: currentUserID,
+                ingredientIds: currentIngredients.compactMap {$0.ingredientFirebase.id}
+            ) { result in
+                self.handleFetchRecipesResult(result)
+            }
+        }
     }
     
     func setFilteredShake(selectedIngredients: [Ingredient]) {
@@ -24,5 +53,10 @@ class ShakeViewModel: ObservableObject {
         } else {
             state = ShakeState.idle
         }
+    }
+    
+    func resetFilter() {
+        currentIngredients = [Ingredient]()
+        state = ShakeState.idle
     }
 }
