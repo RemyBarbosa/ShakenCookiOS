@@ -10,6 +10,7 @@ import FirebaseStorage
 import FirebaseFirestore
 
 class RecipesRepository {
+    private let ingredientRepository = IngredientRepository()
     private struct Constants {
         static let recipes = "recipes"
         static let userId = "userId"
@@ -17,11 +18,11 @@ class RecipesRepository {
     
     private let firestoreRecipeCollection = Firestore.firestore().collection(Constants.recipes)
     
-    func uploadRecipe(recipe : Recipe, completion : @escaping (Bool) -> Void) {
+    func uploadRecipe(recipe : RecipeFirebase, completion : @escaping (Bool) -> Void) {
         guard let recipeId = recipe.id else {
             
             let collectionRef = self.firestoreRecipeCollection
-
+            
             do {
                 try collectionRef.addDocument(from : recipe) { error in
                     if let error = error {
@@ -37,11 +38,11 @@ class RecipesRepository {
                 print("Error adding or replace recipe: catch")
             }
             
-            return 
+            return
         }
         
         let collectionRef = self.firestoreRecipeCollection.document(recipeId)
-
+        
         do {
             try collectionRef.setData(from : recipe) { error in
                 if let error = error {
@@ -59,37 +60,60 @@ class RecipesRepository {
         
     }
     
-    func getRecipes(userId:String, completion: @escaping ([Recipe]?) -> Void) {
-        // Define the query
+    func fetchAllRecipes(userId:String, completion: @escaping (Result<[Recipe], Error>) -> Void) {
         let firebaseQuery = firestoreRecipeCollection
             .whereField(Constants.userId, isEqualTo: userId)
             .limit(to: 10)
         
-        firebaseQuery.getDocuments { (querySnapshot, error) in
+        firebaseQuery.getDocuments(completion: { (querySnapshot, error) in
             if let error = error {
-                print(error)
-                completion(nil)
+                completion(.failure(error))
                 return
             }
+            let dispatchGroup = DispatchGroup()
+            var recipes: [Recipe] = []
             
-            guard let querySnapshot = querySnapshot else {
-                completion(nil)
-                return
-            }
-            
-            if (!querySnapshot.documents.isEmpty) {
-                let recipes = querySnapshot.documents.compactMap() { document in
-                    do {
-                        return try document.data(as: Recipe.self)
-                    } catch {
-                        completion(nil)
-                        return nil
+            for document in querySnapshot!.documents {
+                dispatchGroup.enter()
+                do {
+                    let firebaseRecipe = try document.data(as: RecipeFirebase.self)
+                    self.ingredientRepository.fetchIngredients(withIds: firebaseRecipe.ingredientIds) { result in
+                        switch result {
+                        case .success(let ingredients):
+                            let recipe = firebaseRecipe.toRecipe(ingredients: ingredients)
+                            recipes.append(recipe)
+                            dispatchGroup.leave()
+                        case .failure(let error):
+                            completion(.failure(error))
+                            dispatchGroup.leave()
+                        }
                     }
+                } catch {
+                    completion(.failure(error))
+                    dispatchGroup.leave()
                 }
-                completion(recipes)
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                completion(.success(recipes))
+            }
+        })
+    }
+    
+    func removeRecipe(recipe:Recipe, completion : @escaping () -> Void) {
+        guard let recipeId = recipe.id else {
+            print("recipe with no id")
+            return
+        }
+        let documentRef = firestoreRecipeCollection.document(recipeId)
+        documentRef.delete { error in
+            if let error = error {
+                print("Error removing recipe: \(error.localizedDescription)")
             } else {
-                completion(nil)
+                completion()
+                print("Recipe successfully removed!")
             }
         }
     }
+    
 }

@@ -16,12 +16,11 @@ struct RecipeView: View {
     @State private var recipeKind = RecipeKind.mainCourse
     @StateObject var viewModel = RecipeViewModel(recipesRepository: RecipesRepository())
     let numberFormatter = DoubleNumberFormatter()
-    @State var currentStep : Step?
     @State var isTitleFilled: Bool = true
     @State var isIngredientsFilled: Bool = true
     @State var isStepsFilled: Bool = true
     @State var initialRecipe: Recipe?
-    var onDismiss: (() -> Void)?
+    var onDismiss: ((Recipe?) -> Void)?
     
     var body: some View {
         
@@ -100,7 +99,7 @@ struct RecipeView: View {
                         Spacer()
                         FloatingActionButtonView(
                             label: {
-                                Text("+").font(.largeTitle).colorInvert()
+                                Text("+").font(.largeTitle)
                             },
                             width: 36.0,
                             height: 36.0
@@ -133,7 +132,7 @@ struct RecipeView: View {
                                             }
                                         }
                                         Button(action: {
-                                            currentStep = step
+                                            viewModel.currentStep = step
                                             showBottomSheetSteps.toggle()
                                         }) {
                                             Image(systemName: "pencil").padding(.trailing)
@@ -157,7 +156,7 @@ struct RecipeView: View {
                         Spacer()
                         FloatingActionButtonView(
                             label: {
-                                Text("+").font(.largeTitle).colorInvert()
+                                Text("+").font(.largeTitle)
                             },
                             width: 36.0,
                             height: 36.0
@@ -182,7 +181,7 @@ struct RecipeView: View {
                     Spacer()
                     FloatingActionButtonView(
                         label: {
-                            Image(systemName: "checkmark").colorInvert()
+                            Image(systemName: "square.and.arrow.down")
                         }
                     ) {
                         if (titleText.isEmpty) {
@@ -219,11 +218,11 @@ struct RecipeView: View {
                 viewModel.addIngredientsToList(ingredientsToAdd: selectedIngredients)
             }
         }).sheet(isPresented: $showBottomSheetSteps, content: {
-            StepView(initialIngredients: viewModel.currentIngredients, currentStep : currentStep) {ingredients, description in
+            StepView(initialIngredients: viewModel.currentIngredients, currentStep : viewModel.currentStep) {ingredients, description in
                 
                 isStepsFilled = true
-                viewModel.handleStep(ingredients: ingredients, description: description, currentStep : currentStep)
-                currentStep = nil
+                viewModel.handleStep(ingredients: ingredients, description: description, currentStep : viewModel.currentStep)
+                viewModel.currentStep = nil
             }
         })
         .onChange(of: viewModel.state) { state in
@@ -236,7 +235,13 @@ struct RecipeView: View {
                 print("loading")
             case .uploaded :
                 presentationMode.wrappedValue.dismiss()
-                self.onDismiss?()
+                self.onDismiss?(nil)
+            }
+        }
+        .onDisappear {
+            if (initialRecipe?.id == nil) {
+                viewModel.saveCache(title: titleText, recipeKind: recipeKind, initialRecipe: initialRecipe)
+                self.onDismiss?(viewModel.currentRecipe)
             }
         }
     }

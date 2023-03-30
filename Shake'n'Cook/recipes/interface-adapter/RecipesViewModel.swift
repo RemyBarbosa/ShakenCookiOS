@@ -11,6 +11,8 @@ class RecipesViewModel: ObservableObject {
     private let recipesRepository: RecipesRepository
     @Published var state  = RecipesState.idle
     var currentRecipe : Recipe?
+    var cachedRecipe : Recipe?
+    var currentRecipes = [Recipe]()
     
     init(recipesRepository: RecipesRepository) {
         self.recipesRepository = recipesRepository
@@ -21,17 +23,28 @@ class RecipesViewModel: ObservableObject {
         guard let currentUserID = UserDefaults.standard.string(forKey: "firebaseUserId") else {
             return
         }
-        recipesRepository.getRecipes(userId: currentUserID) { recipes in
-            guard let recipesNonNull = recipes else {
+        recipesRepository.fetchAllRecipes(userId: currentUserID) { result in
+            switch result {
+            case .success(let recipes):
+                self.currentRecipes = recipes
+                self.state = RecipesState.content(recipes: recipes)
+            case .failure(let error):
+                print("Error fetching recipes: \(error.localizedDescription)")
                 self.state = RecipesState.error
-                return
-            }
-            if (recipesNonNull.isEmpty) {
-                self.state = RecipesState.error
-            } else {
-                self.state = RecipesState.content(recipes: recipesNonNull)
             }
         }
+    }
+    
+    func removeRecipe(at offsets: IndexSet, completion : @escaping () -> Void) {
+        let recipesToRemove = offsets.map { currentRecipes[$0] }
+        recipesToRemove.forEach { recipe in
+            recipesRepository.removeRecipe(recipe: recipe, completion: completion)
+        }
+        currentRecipes.remove(atOffsets: offsets)
+    }
+    
+    func removeRecipe(recipe : Recipe, completion : @escaping () -> Void) {
+        recipesRepository.removeRecipe(recipe: recipe, completion: completion)
     }
     
     func getTotalWith(recipe : Recipe) -> String {

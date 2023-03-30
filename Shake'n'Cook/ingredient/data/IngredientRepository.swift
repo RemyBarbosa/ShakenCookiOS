@@ -153,4 +153,36 @@ class IngredientRepository {
         
         task.resume()
     }
+    
+    func fetchIngredients(withIds ingredientIds: [String], completion: @escaping (Result<[IngredientFirebase], Error>) -> Void) {
+
+        var ingredients: [IngredientFirebase] = []
+        let dispatchGroup = DispatchGroup()
+
+        for ingredientId in ingredientIds {
+            dispatchGroup.enter()
+            firestoreIngredientCollection.document(ingredientId).getDocument { (document, error) in
+                if let error = error {
+                    completion(.failure(error))
+                    dispatchGroup.leave()
+                } else if let document = document, document.exists {
+                    do {
+                        let ingredient = try document.data(as: IngredientFirebase.self)
+                        ingredients.append(ingredient)
+                        dispatchGroup.leave()
+                    } catch {
+                        completion(.failure(error))
+                        dispatchGroup.leave()
+                    }
+                } else {
+                    completion(.failure(NSError(domain: "apps.horizon.ShakenCook", code: -1, userInfo: [NSLocalizedDescriptionKey: "Document does not exist"])))
+                    dispatchGroup.leave()
+                }
+            }
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            completion(.success(ingredients))
+        }
+    }
 }

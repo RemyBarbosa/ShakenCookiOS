@@ -12,6 +12,8 @@ class RecipeViewModel: ObservableObject {
     @Published var currentIngredients = [Ingredient]()
     @Published var currentQuantities = [Quantity]()
     @Published var currentSteps = [Step]()
+    @Published var currentStep : Step?
+    @Published var currentRecipe : Recipe?
 
     @Published var state  = RecipeState.idle
     
@@ -21,6 +23,10 @@ class RecipeViewModel: ObservableObject {
     
     func initWith(recipe : Recipe?) {
         if let recipe = recipe {
+            currentIngredients = recipe.ingredients.map{Ingredient(ingredientFirebase: $0)}
+            currentQuantities = recipe.quantities
+            currentSteps = recipe.steps
+        } else if let recipe = currentRecipe {
             currentIngredients = recipe.ingredients.map{Ingredient(ingredientFirebase: $0)}
             currentQuantities = recipe.quantities
             currentSteps = recipe.steps
@@ -76,12 +82,12 @@ class RecipeViewModel: ObservableObject {
         guard let currentUserID = UserDefaults.standard.string(forKey: "firebaseUserId") else {
             return
         }
-        let recipe = Recipe(
+        let recipe = RecipeFirebase(
             id: initialRecipe?.id ?? nil,
             userId: currentUserID,
             title: title,
             kind: recipeKind,
-            ingredients: currentIngredients.compactMap{$0.ingredientFirebase},
+            ingredientIds: currentIngredients.compactMap{$0.ingredientFirebase.id},
             quantities: currentQuantities,
             steps: currentSteps
         )
@@ -92,5 +98,21 @@ class RecipeViewModel: ObservableObject {
                 self.state = RecipeState.error
             }
         }
+    }
+    
+    func saveCache(title : String, recipeKind : RecipeKind, initialRecipe : Recipe?) {
+        if (initialRecipe?.id != nil) { return }
+        guard let currentUserID = UserDefaults.standard.string(forKey: "firebaseUserId") else {
+            return
+        }
+        currentRecipe = Recipe(
+            id: nil,
+            userId: currentUserID,
+            title: title,
+            kind: recipeKind,
+            ingredients: currentIngredients.compactMap{$0.ingredientFirebase},
+            quantities: currentQuantities,
+            steps: currentSteps
+        )
     }
 }

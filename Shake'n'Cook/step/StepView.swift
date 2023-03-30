@@ -73,7 +73,7 @@ struct StepView: View {
                 Spacer()
                 FloatingActionButtonView(
                     label: {
-                        Image(systemName: "checkmark").colorInvert()
+                        Image(systemName: "checkmark")
                     }
                 ) {
                     if (description.isEmpty) {

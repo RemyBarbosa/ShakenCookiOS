@@ -9,6 +9,20 @@ import Foundation
 import FirebaseFirestoreSwift
 import CodableFirebase
 
+struct RecipeFirebase : Codable, Hashable {
+    @DocumentID var id: String?
+    let userId: String
+    let title: String
+    let kind: RecipeKind
+    let ingredientIds: [String]
+    let quantities: [Quantity]
+    let steps: [Step]
+    
+    func toRecipe(ingredients : [IngredientFirebase]) -> Recipe {
+        return Recipe (id:id, userId: userId, title: title, kind: kind, ingredients: ingredients, quantities: quantities, steps: steps)
+    }
+}
+
 struct Recipe : Codable, Hashable {
     @DocumentID var id: String?
     let userId: String

@@ -14,7 +14,7 @@ struct IngredientItemView: View {
     var body: some View {
         HStack{
             IngredientImageView(ingredient:ingredient)
-            Text(ingredient.ingredientFirebase.label).foregroundColor(Color.black)
+            Text(ingredient.ingredientFirebase.label).foregroundColor(Color("textColor"))
             Spacer()
             if ingredient.isSelected {
                 Image(systemName: "checkmark")

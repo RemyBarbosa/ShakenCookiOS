@@ -53,7 +53,7 @@ struct SearchIngredientView: View {
                     Spacer()
                     FloatingActionButtonView(
                         label: {
-                            Image(systemName: "checkmark").colorInvert()
+                            Image(systemName: "checkmark")
                         }
                     ) {
                         presentationMode.wrappedValue.dismiss()
@@ -66,7 +66,6 @@ struct SearchIngredientView: View {
         .onDisappear {
             self.onDismiss?(viewModel.selectedIngredients.filter { $0.isSelected })
         }
-        
     }
 }
 

@@ -18,7 +18,7 @@ struct FloatingActionButtonView<Label> : View where Label : View {
         Button(action: {
             action()
         }, label: {
-            self.label().frame(width: width, height: height)
+            self.label().frame(width: width, height: height).foregroundColor(Color("iconButtonColor"))
         })
         .background(Color.blue)
         .cornerRadius(200)
@@ -29,7 +29,7 @@ struct FloatingActionButtonView<Label> : View where Label : View {
 struct FloatingActionButtonView_Previews: PreviewProvider {
     static var previews: some View {
         FloatingActionButtonView(label: {
-            Text("+").font(.largeTitle).colorInvert()
+            Text("+").font(.largeTitle)
         })
     }
 }

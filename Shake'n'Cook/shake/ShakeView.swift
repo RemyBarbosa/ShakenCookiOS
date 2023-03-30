@@ -40,8 +40,10 @@ struct ShakeView: View {
                     Spacer()
                     FloatingActionButtonView(
                         label: {
-                            Image(uiImage: SVGKImage(named:"fridge").resize(width: 35, height:50)
-                            )
+                            Image("fridge")
+                              .resizable()
+                              .frame(width: 35, height: 50)
+                              .foregroundColor(Color("iconButtonColor"))
                         }
                     ) {
                         showBottomSheet.toggle()

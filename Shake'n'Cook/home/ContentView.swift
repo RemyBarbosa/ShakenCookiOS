@@ -13,7 +13,7 @@ struct ContentView: View {
         TabView {
             ShakeView()
                 .tabItem {
-                    Image(uiImage: SVGKImage(named: "shake").resize(width: 30, height: 30))
+                    Image(systemName: "iphone.gen3.radiowaves.left.and.right")
                     Text("Shake")
                 }
             RecipesView()
