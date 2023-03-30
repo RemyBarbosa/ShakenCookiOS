@@ -20,6 +20,7 @@ struct RecipeView: View {
     @State var isIngredientsFilled: Bool = true
     @State var isStepsFilled: Bool = true
     @State var initialRecipe: Recipe?
+    @State var editViewEnabled: Bool = false
     var onDismiss: ((Recipe?) -> Void)?
     var onDisappear: (() -> Void)?
     
@@ -28,31 +29,45 @@ struct RecipeView: View {
         ZStack {
             ScrollView {
                 VStack {
-                    TextField("Your awesome recipe", text: $titleText)
-                        .padding(.horizontal).padding(.top).multilineTextAlignment(.center)
-                        .onAppear() {
-                            if let initialRecipe = initialRecipe {
-                                titleText = initialRecipe.title
-                                recipeKind = initialRecipe.kind
-                            }
-                            viewModel.initWith(recipe: initialRecipe)
+                    if (editViewEnabled) {
+                        TextField("Your awesome recipe", text: $titleText)
+                            .padding(.horizontal).padding(.top).multilineTextAlignment(.center)
+                        if !isTitleFilled && titleText.isEmpty {
+                            Text("Please enter recipe title.")
+                                .foregroundColor(.red)
+                                .padding(.bottom, 10)
                         }
-                    if !isTitleFilled && titleText.isEmpty {
-                        Text("Please enter recipe title.")
-                            .foregroundColor(.red)
-                            .padding(.bottom, 10)
+                    } else {
+                        Text(titleText)
+                            .padding(.horizontal).padding(.top).multilineTextAlignment(.center)
                     }
                     
-                    let recipesKinds = RecipeKind.allCases
-                    Picker(selection: $recipeKind, label: Text("Select an option")) {
-                        ForEach(recipesKinds, id: \.self) { kind in
-                            Text(kind.title).tag(kind)
+                    if (editViewEnabled) {
+                        let recipesKinds = RecipeKind.allCases
+                        Picker(selection: $recipeKind, label: Text("Select an option")) {
+                            ForEach(recipesKinds, id: \.self) { kind in
+                                Text(kind.title).tag(kind)
+                            }
+                        }.padding(.horizontal).padding(.top).pickerStyle(.menu)
+                    } else {
+                        Text(recipeKind.title).padding(.horizontal).padding(.top).pickerStyle(.menu).foregroundColor(Color.blue)
+                    }
+                    DashedDivider().stroke(style: StrokeStyle(lineWidth: 6, dash: [8])).foregroundColor(Color.blue).frame(height: 10).onAppear() {
+                        if let initialRecipe = initialRecipe {
+                            titleText = initialRecipe.title
+                            recipeKind = initialRecipe.kind
+                            if (initialRecipe.id == nil) {
+                                editViewEnabled = true
+                            }
+                        } else {
+                            editViewEnabled = true
                         }
-                    }.padding(.horizontal).padding(.top).pickerStyle(.menu)
-                    DashedDivider().stroke(style: StrokeStyle(lineWidth: 6, dash: [8])).foregroundColor(Color.blue).frame(height: 10)
+                        viewModel.initWith(recipe: initialRecipe)
+                    }
                 }
                 VStack {
-                    Text("Add your ingredients").font(.title2).padding(.top, 8)
+                    let title = editViewEnabled ? "Add your ingredients" : "Ingredients"
+                    Text(title).font(.title2).padding(.top, 8)
                     if !isIngredientsFilled {
                         Text("Please add some ingredients.")
                             .foregroundColor(.red)
@@ -68,51 +83,64 @@ struct RecipeView: View {
                                     Text(ingredient.ingredientFirebase.name)
                                     
                                     Spacer()
-                                    TextField("1000", value: $viewModel.currentQuantities[ingredientIndex].value, formatter: numberFormatter)
-                                        .keyboardType(.decimalPad)
-                                        .frame(width: 45)
-                                        .multilineTextAlignment(.trailing)
+                                    if (editViewEnabled) {
+                                        TextField("1000", value: $viewModel.currentQuantities[ingredientIndex].value, formatter: numberFormatter)
+                                            .keyboardType(.decimalPad)
+                                            .frame(width: 45)
+                                            .multilineTextAlignment(.trailing)
+                                    } else {
+                                        Text("\(String(format: "%.2f", viewModel.currentQuantities[ingredientIndex].value))")
+                                            .multilineTextAlignment(.trailing)
+                                    }
                                     
-                                    let quantityKinds = QuantityKind.allCases
-                                    Menu {
-                                        ForEach(quantityKinds, id: \.self) { kind in
-                                            Button(action: { viewModel.currentQuantities[ingredientIndex].kind = kind }) {
-                                                Text(kind.title)
+                                    if (editViewEnabled) {
+                                        let quantityKinds = QuantityKind.allCases
+                                        Menu {
+                                            ForEach(quantityKinds, id: \.self) { kind in
+                                                Button(action: { viewModel.currentQuantities[ingredientIndex].kind = kind }) {
+                                                    Text(kind.title)
+                                                }
                                             }
+                                        } label: {
+                                            Text(viewModel.currentQuantities[ingredientIndex].kind.rawValue)
+                                            Image(systemName: "chevron.up.chevron.down")
                                         }
-                                    } label: {
-                                        Text(viewModel.currentQuantities[ingredientIndex].kind.rawValue)
-                                        Image(systemName: "chevron.up.chevron.down")
-                                    }
-                                    .padding(.trailing)
-                                    Button(action: {
-                                        viewModel.removeIngredient(ingredient: ingredient)
-                                    }) {
-                                        Image(systemName: "trash").padding(.trailing)
+                                        .padding(.trailing)
+                                    } else {
+                                        Text(viewModel.currentQuantities[ingredientIndex].kind.title).padding(.trailing).foregroundColor(Color.blue)
                                     }
                                     
+                                    if (editViewEnabled) {
+                                        Button(action: {
+                                            viewModel.removeIngredient(ingredient: ingredient)
+                                        }) {
+                                            Image(systemName: "trash").padding(.trailing)
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
-                    
-                    HStack {
-                        Spacer()
-                        FloatingActionButtonView(
-                            label: {
-                                Text("+").font(.largeTitle)
-                            },
-                            width: 36.0,
-                            height: 36.0
-                        ) {
-                            showBottomSheet.toggle()
-                        }
-                    }.padding(.horizontal).padding(.bottom, 8)
+                    if (editViewEnabled) {
+                        HStack {
+                            Spacer()
+                            FloatingActionButtonView(
+                                label: {
+                                    Text("+").font(.largeTitle)
+                                },
+                                width: 36.0,
+                                height: 36.0
+                            ) {
+                                showBottomSheet.toggle()
+                            }
+                        }.padding(.horizontal).padding(.bottom, 8)
+                    }
                     
                     DashedDivider().stroke(style: StrokeStyle(lineWidth: 6, dash: [8])).foregroundColor(Color.blue).frame(height: 10)
                 }
                 VStack {
-                    Text("Add recipes steps").font(.title2).padding(.top, 8)
+                    let title = editViewEnabled ? "Add recipes steps" : "Recipe Steps"
+                    Text(title).font(.title2).padding(.top, 8)
                     if !isStepsFilled {
                         Text("Please add some steps.")
                             .foregroundColor(.red)
@@ -132,16 +160,18 @@ struct RecipeView: View {
                                                 }
                                             }
                                         }
-                                        Button(action: {
-                                            viewModel.currentStep = step
-                                            showBottomSheetSteps.toggle()
-                                        }) {
-                                            Image(systemName: "pencil").padding(.trailing)
-                                        }
-                                        Button(action: {
-                                            viewModel.removeStep(step: step)
-                                        }) {
-                                            Image(systemName: "trash").padding(.trailing)
+                                        if (editViewEnabled) {
+                                            Button(action: {
+                                                viewModel.currentStep = step
+                                                showBottomSheetSteps.toggle()
+                                            }) {
+                                                Image(systemName: "pencil").padding(.trailing)
+                                            }
+                                            Button(action: {
+                                                viewModel.removeStep(step: step)
+                                            }) {
+                                                Image(systemName: "trash").padding(.trailing)
+                                            }
                                         }
                                     }.frame(alignment: Alignment.leading)
                                     HStack {
@@ -153,24 +183,26 @@ struct RecipeView: View {
                         }
                     }
                     
-                    HStack {
-                        Spacer()
-                        FloatingActionButtonView(
-                            label: {
-                                Text("+").font(.largeTitle)
-                            },
-                            width: 36.0,
-                            height: 36.0
-                        ) {
-                            if (viewModel.currentIngredients.isEmpty) {
-                                isIngredientsFilled = false
-                                return
-                            } else {
-                                isIngredientsFilled = true
+                    if (editViewEnabled) {
+                        HStack {
+                            Spacer()
+                            FloatingActionButtonView(
+                                label: {
+                                    Text("+").font(.largeTitle)
+                                },
+                                width: 36.0,
+                                height: 36.0
+                            ) {
+                                if (viewModel.currentIngredients.isEmpty) {
+                                    isIngredientsFilled = false
+                                    return
+                                } else {
+                                    isIngredientsFilled = true
+                                }
+                                showBottomSheetSteps.toggle()
                             }
-                            showBottomSheetSteps.toggle()
-                        }
-                    }.padding(.horizontal).padding(.bottom, 8)
+                        }.padding(.horizontal).padding(.bottom, 8)
+                    }
                     
                     DashedDivider().stroke(style: StrokeStyle(lineWidth: 6, dash: [8])).foregroundColor(Color.blue).frame(height: 10)
                 }
@@ -182,31 +214,40 @@ struct RecipeView: View {
                     Spacer()
                     FloatingActionButtonView(
                         label: {
-                            Image(systemName: "square.and.arrow.down")
+                            if (editViewEnabled) {
+                                Image(systemName: "square.and.arrow.down")
+                            } else {
+                                Image(systemName: "pencil")
+                            }
+                            
                         }
                     ) {
-                        if (titleText.isEmpty) {
-                            isTitleFilled = false
-                            return
+                        if (editViewEnabled) {
+                            if (titleText.isEmpty) {
+                                isTitleFilled = false
+                                return
+                            } else {
+                                isTitleFilled = true
+                            }
+                            
+                            if (viewModel.currentIngredients.isEmpty) {
+                                isIngredientsFilled = false
+                                return
+                            } else {
+                                isIngredientsFilled = true
+                            }
+                            
+                            if (viewModel.currentSteps.isEmpty) {
+                                isStepsFilled = false
+                                return
+                            } else {
+                                isStepsFilled = true
+                            }
+                            
+                            viewModel.uploadRecipe(title: titleText, recipeKind: recipeKind, initialRecipe: initialRecipe)
                         } else {
-                            isTitleFilled = true
+                            editViewEnabled = true
                         }
-                        
-                        if (viewModel.currentIngredients.isEmpty) {
-                            isIngredientsFilled = false
-                            return
-                        } else {
-                            isIngredientsFilled = true
-                        }
-                        
-                        if (viewModel.currentSteps.isEmpty) {
-                            isStepsFilled = false
-                            return
-                        } else {
-                            isStepsFilled = true
-                        }
-                        
-                        viewModel.uploadRecipe(title: titleText, recipeKind: recipeKind, initialRecipe: initialRecipe)
                     }.padding()
                 }
             }

@@ -84,7 +84,7 @@ struct ShakeView: View {
         .sheet(isPresented: $showRecipeBottomSheet, content: {
             if case .shaked(let recipe) = viewModel.state {
                 RecipeView(initialRecipe: recipe, onDisappear: {
-                    viewModel.resetFilter()
+                    viewModel.showLastState()
                 })
             }
         }).onChange(of: viewModel.state) { state in

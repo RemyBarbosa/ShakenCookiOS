@@ -59,4 +59,12 @@ class ShakeViewModel: ObservableObject {
         currentIngredients = [Ingredient]()
         state = ShakeState.idle
     }
+    
+    func showLastState() {
+        if (currentIngredients.isEmpty) {
+            state = ShakeState.idle
+        } else {
+            state = ShakeState.addFilter(ingredients: currentIngredients)
+        }
+    }
 }
