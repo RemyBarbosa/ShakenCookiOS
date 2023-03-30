@@ -26,6 +26,10 @@ class RecipesViewModel: ObservableObject {
         recipesRepository.fetchAllRecipes(userId: currentUserID) { result in
             switch result {
             case .success(let recipes):
+                if (recipes.isEmpty) {
+                    self.state = RecipesState.error
+                    return 
+                }
                 self.currentRecipes = recipes
                 self.state = RecipesState.content(recipes: recipes)
             case .failure(let error):

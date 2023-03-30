@@ -26,12 +26,12 @@ struct ShakeView: View {
                     case .loading:
                         ProgressView()
                     case .error:
-                        Text("Something went wrong plz try again").font(.largeTitle)
+                        Text("Something went wrong plz try again").font(.largeTitle).multilineTextAlignment(TextAlignment.center)
                     case .noRecipe(let isFiltered):
                         if (isFiltered) {
-                            Text("No recipe with thoses ingredients").font(.largeTitle)
+                            Text("No recipe with thoses ingredients").font(.largeTitle).multilineTextAlignment(TextAlignment.center)
                         } else {
-                            Text("No recipe ").font(.largeTitle)
+                            Text("No recipe ! add some and then shake again 😁 ").font(.largeTitle).multilineTextAlignment(TextAlignment.center)
                         }
                     case .shaked(_):
                         Text("Recipe Found !").font(.largeTitle)

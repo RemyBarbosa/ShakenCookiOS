@@ -12,12 +12,12 @@ class ShakeViewModel: ObservableObject {
     @Published var state = ShakeState.idle
     @Published var currentIngredients = [Ingredient]()
     
-    fileprivate func handleFetchRecipesResult(_ result: Result<[Recipe], Error>) {
+    fileprivate func handleFetchRecipesResult(isFiltered : Bool, _ result: Result<[Recipe], Error>) {
         switch result {
         case .success(let recipes):
             guard let  randomRecipe = recipes.randomElement() else {
                 print("no random recipe")
-                self.state = ShakeState.noRecipe(isFiltered: false)
+                self.state = ShakeState.noRecipe(isFiltered: isFiltered)
                 return
             }
             self.state = ShakeState.shaked(recipe: randomRecipe)
@@ -34,14 +34,14 @@ class ShakeViewModel: ObservableObject {
         }
         if (currentIngredients.isEmpty) {
             recipesRepository.fetchAllRecipes(userId: currentUserID) { result in
-                self.handleFetchRecipesResult(result)
+                self.handleFetchRecipesResult(isFiltered: false, result)
             }
         } else {
             recipesRepository.fetchAllRecipes(
                 userId: currentUserID,
                 ingredientIds: currentIngredients.compactMap {$0.ingredientFirebase.id}
             ) { result in
-                self.handleFetchRecipesResult(result)
+                self.handleFetchRecipesResult(isFiltered: true, result)
             }
         }
     }
