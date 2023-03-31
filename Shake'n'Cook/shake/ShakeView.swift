@@ -48,10 +48,14 @@ struct ShakeView: View {
                                     Spacer()
                                 }
                             }.padding()
-                            List(ingredients, id: \.ingredientFirebase.label) { ingredient in
-                                IngredientItemView(ingredient: ingredient)
-                            }
-                            .listStyle(PlainListStyle()).padding()
+                            List {
+                                ForEach(ingredients, id: \.ingredientFirebase.label) { ingredient in
+                                    IngredientItemView(ingredient: ingredient)
+                                }
+                                .onDelete { indexSet in
+                                    viewModel.removeIngredient(atOffsets: indexSet)
+                                }
+                            }.listStyle(PlainListStyle()).padding()
                         }
                     }
                     Spacer()

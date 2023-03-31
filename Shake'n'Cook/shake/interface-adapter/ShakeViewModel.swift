@@ -67,4 +67,13 @@ class ShakeViewModel: ObservableObject {
             state = ShakeState.addFilter(ingredients: currentIngredients)
         }
     }
+    
+    func removeIngredient(atOffsets offsets: IndexSet) {
+        currentIngredients.remove(atOffsets: offsets)
+        if (currentIngredients.isEmpty) {
+            state = ShakeState.idle
+        } else {
+            state = ShakeState.addFilter(ingredients: currentIngredients)
+        }
+    }
 }
