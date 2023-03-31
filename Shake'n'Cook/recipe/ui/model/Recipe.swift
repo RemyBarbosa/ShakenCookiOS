@@ -17,9 +17,19 @@ struct RecipeFirebase : Codable, Hashable {
     let ingredientIds: [String]
     let quantities: [Quantity]
     let steps: [Step]
+    let portionCount: Int?
     
     func toRecipe(ingredients : [IngredientFirebase]) -> Recipe {
-        return Recipe (id:id, userId: userId, title: title, kind: kind, ingredients: ingredients, quantities: quantities, steps: steps)
+        return Recipe (
+            id:id,
+            userId: userId,
+            title: title,
+            kind: kind,
+            ingredients: ingredients,
+            quantities: quantities,
+            steps: steps,
+            portionCount: portionCount ?? 1
+        )
     }
 }
 
@@ -31,6 +41,20 @@ struct Recipe : Codable, Hashable {
     let ingredients: [IngredientFirebase]
     let quantities: [Quantity]
     let steps: [Step]
+    let portionCount: Int
+    
+    func toRecipeFirebase() -> RecipeFirebase {
+        return RecipeFirebase (
+            id:id,
+            userId: userId,
+            title: title,
+            kind: kind,
+            ingredientIds: ingredients.compactMap{$0.id},
+            quantities: quantities,
+            steps: steps,
+            portionCount: portionCount
+        )
+    }
 }
 
 enum RecipeKind : CaseIterable, Codable, Hashable{

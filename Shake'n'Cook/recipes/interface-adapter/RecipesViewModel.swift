@@ -56,7 +56,8 @@ class RecipesViewModel: ObservableObject {
         for (index, _) in recipe.ingredients.enumerated() {
             let kcal = recipe.ingredients[index].nutrient.kcal
             let quantity = recipe.quantities[index]
-            sum += kcal * quantity.value * quantity.kind.kcalMultiplier
+            let portionCount = recipe.portionCount
+            sum += (kcal * quantity.value * quantity.kind.kcalMultiplier) / Double(portionCount)
         }
         return "\(String(format: "%.2f", sum))g"
     }
@@ -66,7 +67,8 @@ class RecipesViewModel: ObservableObject {
         for (index, _) in recipe.ingredients.enumerated() {
             let kcal = recipe.ingredients[index].nutrient.kcal
             let quantity = recipe.quantities[index]
-            sum += kcal * quantity.value * quantity.kind.kcalMultiplier
+            let portionCount = recipe.portionCount
+            sum += (kcal * quantity.value * quantity.kind.kcalMultiplier) / Double(portionCount)
         }
         return "\(String(format: "%.2f", sum))g"
     }
@@ -76,7 +78,8 @@ class RecipesViewModel: ObservableObject {
         for (index, _) in recipe.ingredients.enumerated() {
             let kcal = recipe.ingredients[index].nutrient.carb
             let quantity = recipe.quantities[index]
-            sum += kcal * quantity.value * quantity.kind.kcalMultiplier
+            let portionCount = recipe.portionCount
+            sum += (kcal * quantity.value * quantity.kind.kcalMultiplier) / Double(portionCount)
         }
         return "\(String(format: "%.2f", sum))g"
     }
@@ -86,7 +89,8 @@ class RecipesViewModel: ObservableObject {
         for (index, _) in recipe.ingredients.enumerated() {
             let kcal = recipe.ingredients[index].nutrient.fat
             let quantity = recipe.quantities[index]
-            sum += kcal * quantity.value * quantity.kind.kcalMultiplier
+            let portionCount = recipe.portionCount
+            sum += (kcal * quantity.value * quantity.kind.kcalMultiplier) / Double(portionCount)
         }
         return "\(String(format: "%.2f", sum))g"
     }
@@ -96,7 +100,8 @@ class RecipesViewModel: ObservableObject {
         for (index, _) in recipe.ingredients.enumerated() {
             let kcal = recipe.ingredients[index].nutrient.prot
             let quantity = recipe.quantities[index]
-            sum += kcal * quantity.value * quantity.kind.kcalMultiplier
+            let portionCount = recipe.portionCount
+            sum += (kcal * quantity.value * quantity.kind.kcalMultiplier) / Double(portionCount)
         }
         return "\(String(format: "%.2f", sum))g"
     }
@@ -106,7 +111,8 @@ class RecipesViewModel: ObservableObject {
         for (index, _) in recipe.ingredients.enumerated() {
             let kcal = recipe.ingredients[index].nutrient.fiber
             let quantity = recipe.quantities[index]
-            sum += kcal * quantity.value * quantity.kind.kcalMultiplier
+            let portionCount = recipe.portionCount
+            sum += (kcal * quantity.value * quantity.kind.kcalMultiplier) / Double(portionCount)
         }
         return "\(String(format: "%.2f", sum))g"
     }

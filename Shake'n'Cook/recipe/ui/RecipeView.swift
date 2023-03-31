@@ -50,8 +50,23 @@ struct RecipeView: View {
                             }
                         }.padding(.horizontal).padding(.top).pickerStyle(.menu)
                     } else {
-                        Text(recipeKind.title).padding(.horizontal).padding(.top).pickerStyle(.menu).foregroundColor(Color.blue)
+                        Text(recipeKind.title).padding(.horizontal).padding(.top).foregroundColor(Color.blue)
                     }
+                    
+                    HStack {
+                        if (editViewEnabled) {
+                            let numbers = Array(1...20)
+                            Picker(selection: $viewModel.portionCount, label: Text("Select an option")) {
+                                ForEach(numbers, id: \.self) { number in
+                                                Text("\(number)")
+                                            }
+                            }.pickerStyle(.menu).padding(.trailing, -10)
+                        } else {
+                            Text("\(viewModel.portionCount)").foregroundColor(Color.blue)
+                        }
+                        Image(systemName: "person.2")
+                    }.padding(.vertical, 4)
+                    
                     DashedDivider().stroke(style: StrokeStyle(lineWidth: 6, dash: [8])).foregroundColor(Color.blue).frame(height: 10).onAppear() {
                         if let initialRecipe = initialRecipe {
                             titleText = initialRecipe.title

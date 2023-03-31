@@ -14,6 +14,7 @@ class RecipeViewModel: ObservableObject {
     @Published var currentSteps = [Step]()
     @Published var currentStep : Step?
     @Published var currentRecipe : Recipe?
+    @Published var portionCount : Int = 1
 
     @Published var state  = RecipeState.idle
     
@@ -21,15 +22,18 @@ class RecipeViewModel: ObservableObject {
         self.recipesRepository = recipesRepository
     }
     
+    fileprivate func initRecipe(_ recipe: Recipe) {
+        currentIngredients = recipe.ingredients.map{Ingredient(ingredientFirebase: $0)}
+        currentQuantities = recipe.quantities
+        currentSteps = recipe.steps
+        portionCount = recipe.portionCount
+    }
+    
     func initWith(recipe : Recipe?) {
         if let recipe = recipe {
-            currentIngredients = recipe.ingredients.map{Ingredient(ingredientFirebase: $0)}
-            currentQuantities = recipe.quantities
-            currentSteps = recipe.steps
+            initRecipe(recipe)
         } else if let recipe = currentRecipe {
-            currentIngredients = recipe.ingredients.map{Ingredient(ingredientFirebase: $0)}
-            currentQuantities = recipe.quantities
-            currentSteps = recipe.steps
+            initRecipe(recipe)
         }
     }
     
@@ -89,7 +93,8 @@ class RecipeViewModel: ObservableObject {
             kind: recipeKind,
             ingredientIds: currentIngredients.compactMap{$0.ingredientFirebase.id},
             quantities: currentQuantities,
-            steps: currentSteps
+            steps: currentSteps,
+            portionCount: self.portionCount
         )
         recipesRepository.uploadRecipe(recipe: recipe) { success in
             if (success) {
@@ -112,7 +117,8 @@ class RecipeViewModel: ObservableObject {
             kind: recipeKind,
             ingredients: currentIngredients.compactMap{$0.ingredientFirebase},
             quantities: currentQuantities,
-            steps: currentSteps
+            steps: currentSteps,
+            portionCount: self.portionCount
         )
     }
 }
