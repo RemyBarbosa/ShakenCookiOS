@@ -155,8 +155,7 @@ class IngredientRepository {
     }
     
     func fetchIngredients(withIds ingredientIds: [String], completion: @escaping (Result<[IngredientFirebase], Error>) -> Void) {
-
-        var ingredients: [IngredientFirebase] = []
+        var ingredientsDict: [String: IngredientFirebase] = [:] // create an empty dictionary to store the ingredients
         let dispatchGroup = DispatchGroup()
 
         for ingredientId in ingredientIds {
@@ -164,24 +163,23 @@ class IngredientRepository {
             firestoreIngredientCollection.document(ingredientId).getDocument { (document, error) in
                 if let error = error {
                     completion(.failure(error))
-                    dispatchGroup.leave()
                 } else if let document = document, document.exists {
                     do {
                         let ingredient = try document.data(as: IngredientFirebase.self)
-                        ingredients.append(ingredient)
-                        dispatchGroup.leave()
+                        ingredientsDict[ingredientId] = ingredient // add the ingredient to the dictionary using its ID as the key
                     } catch {
                         completion(.failure(error))
-                        dispatchGroup.leave()
                     }
                 } else {
                     completion(.failure(NSError(domain: "apps.horizon.ShakenCook", code: -1, userInfo: [NSLocalizedDescriptionKey: "Document does not exist"])))
-                    dispatchGroup.leave()
                 }
+                dispatchGroup.leave()
             }
         }
 
         dispatchGroup.notify(queue: .main) {
+            // create an array of ingredients in the same order as the input ingredientIds
+            let ingredients = ingredientIds.compactMap { ingredientsDict[$0] }
             completion(.success(ingredients))
         }
     }
