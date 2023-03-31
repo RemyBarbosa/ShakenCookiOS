@@ -60,7 +60,7 @@ struct RecipesView: View {
                                         nutrientView(field: "carbs", text: "\(viewModel.getTotalCarbs(recipe: recipe)) carbs")
                                         nutrientView(field: "fat", text: "\(viewModel.getTotalFat(recipe: recipe)) fat")
                                         nutrientView(field: "prot", text: "\(viewModel.getTotalProt(recipe: recipe)) prot")
-                                        nutrientView(field: "fiber", text: "\(viewModel.getTotalProt(recipe: recipe)) fiber").padding(.bottom, 8)
+                                        nutrientView(field: "fiber", text: "\(viewModel.getTotalFibers(recipe: recipe)) fiber").padding(.bottom, 8)
                                     }
                                 }
                             }
