@@ -41,8 +41,14 @@ class AddIngredientViewModel: ObservableObject {
             return
         }
         
+        let id = titleText
+            .precomposedStringWithCanonicalMapping
+            .folding(options: .diacriticInsensitive, locale: .current)
+            .filter { CharacterSet.alphanumerics.contains($0.unicodeScalars.first!) }
+            .filter { !$0.isWhitespace }
+            .lowercased()
         let ingredient = IngredientFirebase(
-            id: barcodeValue,
+            id: barcodeValue+id,
             name: titleText.lowercased(),
             nameFr: titleText.lowercased(),
             label: titleText,

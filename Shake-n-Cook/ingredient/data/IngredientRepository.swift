@@ -230,4 +230,41 @@ class IngredientRepository {
             completion(.success(ingredients))
         }
     }
+    
+    func fetchIngredientsByBarCode(barcode:String, completion: @escaping (Result<[IngredientFirebase], Error>) -> Void) {
+        var ingredientsDict: [String: IngredientFirebase] = [:] // create an empty dictionary to store the ingredients
+        var ingredientIds: [String] = []
+        let dispatchGroup = DispatchGroup()
+
+        let query = firestoreIngredientCollection.whereField(FieldPath.documentID(), isGreaterThanOrEqualTo: barcode).whereField(FieldPath.documentID(), isLessThan: barcode + "z")
+
+        dispatchGroup.enter()
+        query.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                completion(.failure(NSError(domain: "apps.horizon.ShakenCook", code: -1, userInfo: [NSLocalizedDescriptionKey: "Document does not exist"])))
+                return
+            }
+            
+            for document in documents {
+                do {
+                    let ingredient = try document.data(as: IngredientFirebase.self)
+                    ingredientIds.append(barcode+ingredient.name)
+                    ingredientsDict[barcode+ingredient.name] = ingredient
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            let ingredients = ingredientIds.compactMap { ingredientsDict[$0] }
+            completion(.success(ingredients))
+        }
+    }
 }

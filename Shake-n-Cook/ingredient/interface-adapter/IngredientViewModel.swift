@@ -115,8 +115,8 @@ class IngredientViewModel: ObservableObject {
     }
     
     func getIngredient() {
-        if (selectedIngredients.contains { $0.ingredientFirebase.id == barcodeValue}) { return }
-        ingredientRepository.fetchIngredients(withIds: [barcodeValue]) { [weak self] response in
+        if (selectedIngredients.contains { $0.ingredientFirebase.id?.contains(barcodeValue) == true}) { return }
+        ingredientRepository.fetchIngredientsByBarCode(barcode: barcodeValue) { [weak self] response in
             switch response {
             case .success(let ingredients):
                 guard let ingredient = ingredients.first else {
